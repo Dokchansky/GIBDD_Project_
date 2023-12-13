@@ -1,0 +1,34 @@
+﻿<Window x:Class="GIBDD_Project.Windows.FineWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GIBDD_Project.Windows"
+        mc:Ignorable="d"
+         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="450" Width="800">
+    <Grid>
+        <Label Content="{Binding Title}" Height="450" Width="800"/>
+        <StackPanel Height="20" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
+            <TextBlock Text="Федеральный орган ГИБДД" Height="20" Width="250" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" FontSize="16"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
+            <Image Source="gibdd.png"/>
+        </StackPanel>
+        <DockPanel HorizontalAlignment="Left" Margin="302,71,0,313" Width="200" Height="50">
+            <Label Content="Гос.номер:" Margin="0,5,0,0"/>
+            <ComboBox x:Name="state_number" Margin="0,2,1,20" Background="#FFC9DEF5" DisplayMemberPath="StateNumber" SelectionChanged="state_number_SelectionChanged"/>
+        </DockPanel>
+        <DataGrid Margin="216,151,150,59" Background="#FFC9DEF5" AutoGenerateColumns="False" x:Name="FineGrid" CanUserResizeColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name }" CanUserReorder="False"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Value}" CanUserReorder="False"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" CanUserReorder="False"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
+            <Button Content="В меню" Click="Button_Menu" Height="30" Width="120" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>
