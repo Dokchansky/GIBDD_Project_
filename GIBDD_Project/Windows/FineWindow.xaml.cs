@@ -33,7 +33,7 @@ namespace GIBDD_Project.Windows
             _repository = new FineRepository();
             //FineGrid.ItemsSource = _repository.GetList();
             _transportRepository = new TransportRepository();
-            state_number.ItemsSource = _transportRepository.GetList();
+
 
 
 
@@ -46,29 +46,23 @@ namespace GIBDD_Project.Windows
             mainWindow.Show();
         }
 
-        private void state_number_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _viewTransportModel = state_number.SelectedItem as TransportViewModel;
-            UpdateGrid();
-        }
-        private void UpdateGrid()
-        {
-            if (_viewTransportModel != null)
-            {
-                var selectedNumber = _repository.GetByFineId(_viewTransportModel.ID);
-                FineGrid.ItemsSource = selectedNumber;
-
-
-
-            }
-            else
-            {
-                FineGrid.ItemsSource = null;
-            }
-        }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void Button_Search(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                FineGrid.ItemsSource = _repository.GetList();
+            }
+            else
+            {
+                //List<UserViewModel> searchResult = _repository.Search(search);
+                //FineGrid.ItemsSource = searchResult;
+            }
         }
     }
 }

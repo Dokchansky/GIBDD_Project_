@@ -38,5 +38,16 @@ namespace GIBDD_Project.Infrastructure.Database
                 return FineMapper.Map(entity);
             }
         }
+        //public List<FineViewModel> Search(string search)
+        //{
+        //    search = search.Trim().ToLower();
+
+        //    using (var context = new Context())
+        //    {
+        //        var result = context.Fines.(x => x.Transport).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+        //        return FineMapper.Map(result);
+        //    }
+
+        //}
     }
 }

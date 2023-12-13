@@ -31,6 +31,22 @@ namespace GIBDD_Project.Infrastructure.Database
                 return TransportMapper.Map(item);
             }
         }
+        public List<TransportViewModel> GetByUserId(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Transports.Where(x => x.UserID == id).ToList();
+                return TransportMapper.Map(item);
+            }
+        }
+        public List<TransportViewModel> GetByBrandId(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Transports.Where(x => x.BrandID == id).ToList();
+                return TransportMapper.Map(item);
+            }
+        }
 
 
     }
