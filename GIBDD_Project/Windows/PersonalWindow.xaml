@@ -16,11 +16,11 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-       
-        <DataGrid Margin="245,137,53,25" Background="#FFC9DEF5" x:Name="personalGrid" AutoGenerateColumns="False">
+
+        <DataGrid Margin="245,137,53,25" Background="#FFC9DEF5" x:Name="personalGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Тип кузова" Binding="{Binding CarCategory.Name}"/>
                 <DataGridTextColumn Header="Марка" Binding="{Binding BrandName}"/>
+                <DataGridTextColumn Header="Тип кузова" Binding="{Binding CarCategoryName}"/>
                 <DataGridTextColumn Header="Дата выпуска" Binding="{Binding Year}"/>
                 <DataGridTextColumn Header="Гос.номер" Binding="{Binding StateNumber}"/>
             </DataGrid.Columns>

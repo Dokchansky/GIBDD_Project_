@@ -16,14 +16,18 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-        <DataGrid Margin="79,143,299,67" Background="#FFC9DEF5">
+        <DataGrid Margin="38,143,225,67" Background="#FFC9DEF5" x:Name="userGrid" AutoGenerateColumns="False"  IsReadOnly="True" CanUserSortColumns="True">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header=""/>
-                <DataGridTextColumn Header="ФИО"/>
-                <DataGridTextColumn Header="Роль"/>
+                <DataGridTextColumn Header="Фамилия" CanUserReorder="False" Binding="{Binding SurName}"/>
+                <DataGridTextColumn Header="Имя" CanUserReorder="False" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Отчество" CanUserReorder="False" Binding="{Binding Patronymic}"/>
+                <DataGridTextColumn Header="Дата рождения" CanUserReorder="False" Binding="{Binding Birthday}"/>
+                <DataGridTextColumn Header="Пол" CanUserReorder="False" Binding="{Binding Gender}"/>
+                <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding RoleName}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="506,0,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="580,0,0,0">
             <Button Content="Добавить" Click="Button_Add" Margin="5,15" Height="35" Width="200"/>
             <Button Content="Удалить" Height="35" Width="200"/>
         </StackPanel>

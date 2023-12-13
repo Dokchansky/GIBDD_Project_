@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GIBDD_Project.Infrastructure;
+using GIBDD_Project.Infrastructure.Database;
+using GIBDD_Project.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +22,16 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class UsersWindow : Window
     {
+        private UserViewModel _userViewModel;
+        private UserRepository userRepository;
         public UsersWindow()
         {
             InitializeComponent();
             Title = "Список пользователей";
+            _userViewModel = new UserViewModel();
+            userRepository = new UserRepository();
+          
+            userGrid.ItemsSource = userRepository.GetList();
         }
         private void Button_Menu(object sender, RoutedEventArgs e)
         {

@@ -19,8 +19,8 @@ namespace GIBDD_Project.Infrastructure.Mappers
                 Year = entity.Year,
                 UserID = entity.UserID,
                 BrandID = entity.BrandID,
-                BrandName = entity.Brand?.Name
-                
+                BrandName = entity.Brand?.Name,
+                CarCategoryName = entity.CarCategory?.Name,
 
 
             };
