@@ -103,7 +103,17 @@ namespace GIBDD_Project.Windows
         }
         private void Button_Click (object sender, RoutedEventArgs e)
         {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                userGrid.ItemsSource = userRepository.GetList(); // Показать все элементы, если запрос пуст.
+            }
 
+            else
+            {
+                List<UserViewModel> searchResult = userRepository.Search(search);// Выполнить поиск по запросу.
+                userGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+            }
         }
     }
 }

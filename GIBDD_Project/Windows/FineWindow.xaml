@@ -16,20 +16,20 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-        <DataGrid Margin="57,131,241,31" Background="#FFC9DEF5" x:Name="FineGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
+        <DataGrid Margin="44,143,254,19" Background="#FFC9DEF5" x:Name="FineGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding FineName}"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Value}"/>
-                <DataGridTextColumn Header="Гос.номер" Binding="{Binding StateNumber}"/>
+                <DataGridTextColumn Header="Гос.номер" Binding="{Binding TransportStateNumber}"/>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <Grid>
-            <TextBox x:Name="find" BorderThickness="1" Margin="60,96,390,309"/>
-            <Button  Content="Найти" Margin="415,95,239,306" Grid.Column="0" Click="Button_Search"/>
-        </Grid>
+        <StackPanel Margin="83,65,254,296">
+            <TextBox x:Name="find" BorderThickness="1" Width="450" Height="25" />
+            <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
+        </StackPanel>
     </Grid>
 </Window>

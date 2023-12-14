@@ -31,7 +31,7 @@ namespace GIBDD_Project.Windows
             InitializeComponent();
             Title = "Список штрафов";
             _repository = new FineRepository();
-            //FineGrid.ItemsSource = _repository.GetList();
+            FineGrid.ItemsSource = _repository.GetList();
             _transportRepository = new TransportRepository();
 
 
@@ -51,17 +51,18 @@ namespace GIBDD_Project.Windows
         {
 
         }
-        private void Button_Search(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             string search = find.Text;
             if (string.IsNullOrEmpty(search))
             {
-                FineGrid.ItemsSource = _repository.GetList();
+                FineGrid.ItemsSource = _repository.GetList(); // Показать все элементы, если запрос пуст.
             }
+
             else
             {
-                //List<UserViewModel> searchResult = _repository.Search(search);
-                //FineGrid.ItemsSource = searchResult;
+                List<FineViewModel> searchResult = _repository.Search(search);// Выполнить поиск по запросу.
+                FineGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
         }
     }

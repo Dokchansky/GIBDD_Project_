@@ -47,6 +47,17 @@ namespace GIBDD_Project.Infrastructure.Database
                 return TransportMapper.Map(item);
             }
         }
+        public List<TransportViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
+        {
+            search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
+
+            using (var context = new Context())
+            {
+                var result = context.Transports.Where(x => x.StateNumber.ToLower().Contains(search) && x.StateNumber.Length == search.Length).ToList();
+                return TransportMapper.Map(result);
+            }
+
+        }
 
 
     }

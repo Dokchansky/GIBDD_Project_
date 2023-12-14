@@ -16,7 +16,7 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-        <DataGrid Margin="38,143,225,67" Background="#FFC9DEF5" x:Name="userGrid" AutoGenerateColumns="False"  IsReadOnly="True" CanUserSortColumns="True">
+        <DataGrid Margin="38,149,225,61" Background="#FFC9DEF5" x:Name="userGrid" AutoGenerateColumns="False"  IsReadOnly="True" CanUserSortColumns="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" CanUserReorder="False" Binding="{Binding SurName}"/>
                 <DataGridTextColumn Header="Имя" CanUserReorder="False" Binding="{Binding Name}"/>
@@ -26,18 +26,19 @@
                 <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding RoleName}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="580,0,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,143,0,0">
             <Button Content="Добавить" Click="Button_Add" Margin="5,15" Height="35" Width="200"/>
             <Button Content="Удалить" Height="35" Width="200"/>
             <Button x:Name="Export" Content="Выгрузить" Click="ExportButton_Click" Margin="5,15" Height="35" Width="200"/>
+            <Button x:Name="QR" Content="QR" Click="GenerateButton_Click" Margin="5,15" Height="35" Width="200"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <Grid>
-            <TextBox x:Name="find" BorderThickness="1" Margin="38,96,390,309"/>
-            <Button  Content="Найти" Margin="415,96,225,306" Grid.Column="0" Click="Button_Click"/>
-        </Grid>
-        <Button x:Name="QR" Content="QR" Click="GenerateButton_Click"  Grid.Row="0" Margin="601,96,31,306" />
+        <StackPanel Margin="75,71,262,290">
+            <TextBox x:Name="find" BorderThickness="1" Width="450" Height="25" />
+            <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
+        </StackPanel>
+
     </Grid>
 </Window>

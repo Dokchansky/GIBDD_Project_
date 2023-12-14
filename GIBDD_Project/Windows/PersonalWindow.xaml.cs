@@ -22,18 +22,12 @@ namespace GIBDD_Project.Windows
     public partial class PersonalWindow : Window
     {
         private TransportRepository transportRepository;
-        private CarCategoryRepository carCategoryRepository;
-        private UserViewModel userViewModel;
-        private TransportViewModel transportViewModel;
-        private BrandViewModel brandViewModel;
-        private BrandRepository brandRepository;
         public PersonalWindow()
         {
             InitializeComponent();
             Title = "Личный кабинет";
-            brandRepository = new BrandRepository();
             transportRepository = new TransportRepository();
-            brandViewModel = new BrandViewModel();
+            personalGrid.ItemsSource = transportRepository.GetList();
         }
 
 
@@ -45,7 +39,17 @@ namespace GIBDD_Project.Windows
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                personalGrid.ItemsSource = transportRepository.GetList(); // Показать все элементы, если запрос пуст.
+            }
 
+            else
+            {
+                List<TransportViewModel> searchResult = transportRepository.Search(search);// Выполнить поиск по запросу.
+                personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+            }
         }
 
     }

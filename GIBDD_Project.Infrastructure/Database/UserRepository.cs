@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace GIBDD_Project.Infrastructure.Database
 {
     public partial class UserRepository
@@ -41,6 +41,25 @@ namespace GIBDD_Project.Infrastructure.Database
                 }
                 return UserMapper.Map(clientToRemove);
             }
+        }
+        public List<UserViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
+        {
+            search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
+
+            using (var context = new Context())
+            {
+                var result = context.Users.Include(x => x.Transport)
+    .Where(x =>
+        (x.Name.ToLower().Contains(search) ||
+        x.SurName.ToLower().Contains(search) ||
+        x.Patronymic.ToLower().Contains(search)) &&
+        (x.Name.Length == search.Length ||
+        x.SurName.Length == search.Length ||
+        x.Patronymic.Length == search.Length))
+    .ToList();
+                return UserMapper.Map(result);
+            }
+
         }
     }
 }
