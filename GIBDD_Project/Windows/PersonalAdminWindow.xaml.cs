@@ -1,11 +1,8 @@
-﻿using GIBDD_Project.Infrastructure;
-using GIBDD_Project.Infrastructure.Database;
+﻿using GIBDD_Project.Infrastructure.Database;
 using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,21 +17,21 @@ using System.Windows.Shapes;
 namespace GIBDD_Project.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для UsersWindow.xaml
+    /// Логика взаимодействия для PersonalAdminWindow.xaml
     /// </summary>
-    public partial class UsersWindow : Window
+    public partial class PersonalAdminWindow : Window
     {
         private UserViewModel _userViewModel;
         private UserRepository userRepository;
-        public UsersWindow()
+        private TransportRepository transportRepository;
+        public PersonalAdminWindow()
         {
             InitializeComponent();
-            Title = "Список пользователей";
-            _userViewModel = new UserViewModel();
-            userRepository = new UserRepository();
-          
-            userGrid.ItemsSource = userRepository.GetList();
+            Title = "Автомобили";
+            transportRepository = new TransportRepository();
+            personalGrid.ItemsSource = transportRepository.GetList();
         }
+
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
             Hide();
@@ -44,18 +41,18 @@ namespace GIBDD_Project.Windows
         private void Button_Add(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddUserWindow addUserWindow = new AddUserWindow();
-            addUserWindow.Show();
+            AddCarsWindow addCarsWindow = new AddCarsWindow();
+            addCarsWindow.Show();
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (userGrid.SelectedItem == null)
+            if (personalGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
                 return;
             }
 
-            var item = userGrid.SelectedItem as UserViewModel;
+            var item = personalGrid.SelectedItem as UserViewModel;
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
@@ -101,18 +98,18 @@ namespace GIBDD_Project.Windows
             //    MessageBox.Show("Объект не выбран");
             //}
         }
-        private void Button_Click (object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             string search = find.Text;
             if (string.IsNullOrEmpty(search))
             {
-                userGrid.ItemsSource = userRepository.GetList(); // Показать все элементы, если запрос пуст.
+                personalGrid.ItemsSource = userRepository.GetList(); // Показать все элементы, если запрос пуст.
             }
 
             else
             {
                 List<UserViewModel> searchResult = userRepository.Search(search);// Выполнить поиск по запросу.
-                userGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+                personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
         }
     }

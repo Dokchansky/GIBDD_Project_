@@ -25,7 +25,7 @@ namespace GIBDD_Project.Windows
         public PersonalWindow()
         {
             InitializeComponent();
-            Title = "Личный кабинет";
+            Title = "Автомобили";
             transportRepository = new TransportRepository();
             personalGrid.ItemsSource = transportRepository.GetList();
         }

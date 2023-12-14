@@ -23,8 +23,7 @@ namespace GIBDD_Project.Windows
     public partial class FineWindow : Window
     {
         private FineRepository _repository;
-        private TransportRepository _transportRepository;
-        private TransportViewModel _viewTransportModel;
+
 
         public FineWindow()
         {
@@ -32,7 +31,6 @@ namespace GIBDD_Project.Windows
             Title = "Список штрафов";
             _repository = new FineRepository();
             FineGrid.ItemsSource = _repository.GetList();
-            _transportRepository = new TransportRepository();
 
 
 

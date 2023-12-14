@@ -83,11 +83,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\AddCarsWindow.xaml.cs">
+      <DependentUpon>AddCarsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddFineWindow.xaml.cs">
+      <DependentUpon>AddFineWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddUserWindow.xaml.cs">
       <DependentUpon>AddUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FineAdminWindow.xaml.cs">
+      <DependentUpon>FineAdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\FineWindow.xaml.cs">
       <DependentUpon>FineWindow.xaml</DependentUpon>
@@ -95,12 +104,23 @@
     <Compile Include="Windows\GuestWindow.xaml.cs">
       <DependentUpon>GuestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PersonalAdminWindow.xaml.cs">
+      <DependentUpon>PersonalAdminWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PersonalWindow.xaml.cs">
       <DependentUpon>PersonalWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\UsersWindow.xaml.cs">
-      <DependentUpon>UsersWindow.xaml</DependentUpon>
+    <Compile Include="Windows\UsersAdminWindow.xaml.cs">
+      <DependentUpon>UsersAdminWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\AddCarsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddFineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FineAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,11 +160,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\PersonalAdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PersonalWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\UsersWindow.xaml">
+    <Page Include="Windows\UsersAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -61,5 +61,49 @@ namespace GIBDD_Project.Infrastructure.Database
             }
 
         }
+        public UserViewModel Update(UserEntity entity) // Метод для обновления данных клиента в базе данных.
+        {// Обрезка строковых полей от лишних пробелов.
+            entity.SurName = entity.SurName.Trim();
+            entity.Name = entity.Name.Trim();
+            entity.Patronymic = entity.Patronymic.Trim();
+            entity.Birthday = entity.Birthday.Trim();
+            entity.Gender = entity.Gender.Trim();
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Birthday) || string.IsNullOrEmpty(entity.Gender))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
+
+            using (var context = new Context())
+            {
+                var existingClient = context.Users.Find(entity.ID);
+
+                if (existingClient != null)
+                {// Обновление данных существующего клиента.
+                    context.Entry(existingClient).CurrentValues.SetValues(entity);
+                    context.SaveChanges();
+                }
+            }
+            return UserMapper.Map(entity);// Преобразование сущности в ViewModel.
+        }
+        public UserViewModel Add(UserEntity entity) // Метод для добавления нового клиента в базу данных.
+        {// Обрезка строковых полей от лишних пробелов.
+            entity.SurName = entity.SurName.Trim();
+            entity.Name = entity.Name.Trim();
+            entity.Patronymic = entity.Patronymic.Trim();
+            entity.Birthday = entity.Birthday.Trim();
+            entity.Gender = entity.Gender.Trim();
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Birthday) || string.IsNullOrEmpty(entity.Gender))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
+            using (var context = new Context())
+            {
+                context.Users.Add(entity);// Добавление нового клиента в базу данных.
+                context.SaveChanges();
+            }
+            return UserMapper.Map(entity);
+        }
     }
 }
