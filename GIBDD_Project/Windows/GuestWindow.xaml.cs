@@ -36,6 +36,7 @@ namespace GIBDD_Project.Windows
             Hide();
             AuthWindow authWindow = new AuthWindow();
             authWindow.Show();
+            Close();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GIBDD_Project.Infrastructure.Database;
+using GIBDD_Project.Infrastructure.QR;
 using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,8 +34,9 @@ namespace GIBDD_Project.Windows
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
             Hide();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            AdminWindow adminWindow = new AdminWindow();
+            adminWindow.Show();
+            Close();
         }
         private void Button_Add(object sender, RoutedEventArgs e)
         {
@@ -83,18 +85,18 @@ namespace GIBDD_Project.Windows
         }
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (userGrid.SelectedItem != null)
-            //{
-            //    var qrManager = new QRManager();
-            //    var qrCodeImage = qrManager.Generate(ClientsGrid.SelectedItem);
-            //    var qrWindow = new QRWindow();
-            //    qrWindow.qrImage.Source = qrCodeImage;
-            //    qrWindow.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Объект не выбран");
-            //}
+            if (userGrid.SelectedItem != null)
+            {
+                var qrManager = new QRManager();
+                var qrCodeImage = qrManager.Generate(userGrid.SelectedItem);
+                var qrWindow = new QRWindow();
+                qrWindow.qrImage.Source = qrCodeImage;
+                qrWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не выбран");
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -33,8 +33,9 @@ namespace GIBDD_Project.Windows
         private void Button_Personal(object sender, RoutedEventArgs e)
         {
             Hide();
-            PersonalWindow personalWindow = new PersonalWindow();
+            PersonalAdminWindow personalWindow = new PersonalAdminWindow();
             personalWindow.Show();
+            Close();
         }
 
         private void Button_Fines(object sender, RoutedEventArgs e)
@@ -42,18 +43,21 @@ namespace GIBDD_Project.Windows
             Hide();
             FineAdminWindow fineWindow = new FineAdminWindow();
             fineWindow.Show();
+            Close();
         }
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
             Hide();
             AuthWindow authWindow = new AuthWindow();
             authWindow.Show();
+            Close();
         }
         private void Button_Users(object sender, RoutedEventArgs e)
         {
             Hide();
             UsersAdminWindow usersadminWindow = new UsersAdminWindow();
             usersadminWindow.Show();
+            Close();
         }
 
 

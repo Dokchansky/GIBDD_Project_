@@ -35,18 +35,21 @@ namespace GIBDD_Project
             Hide();
             PersonalWindow personalWindow = new PersonalWindow();
             personalWindow.Show();
+            Close();
         }
         private void Button_Fines(object sender, RoutedEventArgs e)
         {
             Hide();
             FineWindow fineWindow = new FineWindow();
             fineWindow.Show();
+            Close();
         }
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
             Hide();
             AuthWindow authWindow = new AuthWindow();
             authWindow.Show();
+            Close();
         }
     }
 }

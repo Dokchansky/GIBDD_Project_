@@ -36,6 +36,7 @@ namespace GIBDD_Project.Windows
             Hide();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
+            Close();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

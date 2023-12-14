@@ -110,6 +110,9 @@
     <Compile Include="Windows\PersonalWindow.xaml.cs">
       <DependentUpon>PersonalWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\QRWindow.xaml.cs">
+      <DependentUpon>QRWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UsersAdminWindow.xaml.cs">
       <DependentUpon>UsersAdminWindow.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PersonalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\QRWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -16,7 +16,7 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-        <StackPanel Margin="325,56,322,56">
+        <StackPanel Margin="325,56,322,25">
             <Label Content="Марка" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
             <TextBox x:Name="brand_name"/>
             <Label Content="Тип кузова" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
@@ -27,7 +27,7 @@
             <TextBox x:Name="state_number"/>
             <Label Content="Статус угона" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
             <TextBox x:Name="status_car"/>
-            <Button Content="Добавить" Margin="0,25" Width="120" Height="30"/>
+            <Button Content="Добавить" Margin="0,25" Width="120" Height="30" Click="Button_Click"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>

@@ -68,9 +68,9 @@ namespace GIBDD_Project.Windows
                     Application.Current.Resources[UserInfoConsts.RoleName] = " Пользователь";
                     Application.Current.Resources[UserInfoConsts.UserName] = $" {login}";
                     Hide();
-
                     MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show(); ;
+                    mainWindow.Show();
+                    Close();
                 }
                 else if (user1 != null)
                 {
@@ -79,7 +79,8 @@ namespace GIBDD_Project.Windows
                     Application.Current.Resources[UserInfoConsts.UserName] = $" {login}";
                     Hide();
                     AdminWindow adminWindow = new AdminWindow();
-                    adminWindow.Show(); ;
+                    adminWindow.Show();
+                    Close();
                 }
                 else
                 {
@@ -100,6 +101,7 @@ namespace GIBDD_Project.Windows
             Hide();
             GuestWindow guestWindow = new GuestWindow();
             guestWindow.Show();
+            Close();
         }
 
         private void Button_Exit(object sender, RoutedEventArgs e)

@@ -9,5 +9,36 @@ namespace GIBDD_Project.Infrastructure.Mappers
 {
     public class RoleMapper
     {
+        public static RoleViewModel Map(RoleEntity entity)
+        {
+            var viewModel = new RoleViewModel
+            {
+                ID = entity.ID,
+                Name = entity.Name,
+
+            };
+            return viewModel;
+        }
+        public static RoleEntity Map(RoleViewModel viewModel)
+        {
+            var entity = new RoleEntity
+            {
+                ID = viewModel.ID,
+                Name = viewModel.Name,
+
+            };
+            return entity;
+        }
+
+        public static List<RoleEntity> Map(List<RoleViewModel> viewModels)
+        {
+            var entities = viewModels.Select(vm => Map(vm)).ToList();
+            return entities;
+        }
+        public static List<RoleViewModel> Map(List<RoleEntity> entities)
+        {
+            var viewModels = entities.Select(x => Map(x)).ToList();
+            return viewModels;
+        }
     }
 }

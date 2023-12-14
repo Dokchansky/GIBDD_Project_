@@ -20,14 +20,13 @@ Height="450" Width="800">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Value}"/>
-                <DataGridTextColumn Header="Гос.номер" Binding="{Binding TransportStateNumber}"/>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <StackPanel Margin="83,65,254,296">
+        <StackPanel Margin="83,65,254,307">
             <TextBox x:Name="find" BorderThickness="1" Width="450" Height="25" />
             <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
         </StackPanel>

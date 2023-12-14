@@ -27,17 +27,23 @@ namespace GIBDD_Project.Infrastructure.Database
                 return FineMapper.Map(item);
             }
         }
-        public FineViewModel Add(FineViewModel viewModel)
-        {
+        public FineViewModel Add(FineEntity entity)// Метод для добавления новой программы занятий в базу данных.
+        {// Обрезка строковых полей от лишних пробелов.
+            entity.Name = entity.Name.Trim();
+            entity.Value = entity.Value.Trim();
+            entity.Status = entity.Status.Trim();
+
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Value) || string.IsNullOrEmpty(entity.Status.ToString()))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
-                var entity = FineMapper.Map(viewModel);
-
-                context.Fines.Add(entity);
+                context.Fines.Add(entity);// Добавление новой программы занятий в базу данных.
                 context.SaveChanges();
-
-                return FineMapper.Map(entity);
             }
+            return FineMapper.Map(entity);
         }
         public List<FineViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
         {
@@ -49,6 +55,30 @@ namespace GIBDD_Project.Infrastructure.Database
                 return FineMapper.Map(result);
             }
 
+        }
+        public FineViewModel Update(FineEntity entity)// Метод для обновления данных программы занятий в базе данных.
+        {// Обрезка строковых полей от лишних пробелов.
+
+            entity.Name = entity.Name.Trim();
+            entity.Value = entity.Value.Trim();
+            entity.Status = entity.Status.Trim();
+
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Value) || string.IsNullOrEmpty(entity.Status.ToString()))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
+            using (var context = new Context())
+            {
+                var existingClient = context.Fines.Find(entity.ID);
+
+                if (existingClient != null)
+                {// Обновление данных существующей программы занятий.
+                    context.Entry(existingClient).CurrentValues.SetValues(entity);
+                    context.SaveChanges();
+                }
+            }
+            return FineMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
     }
 }

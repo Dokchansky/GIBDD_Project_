@@ -39,9 +39,10 @@ namespace GIBDD_Project.Windows
         }
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
-            Close();
+            Hide();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
+            Close();
         }
 
         

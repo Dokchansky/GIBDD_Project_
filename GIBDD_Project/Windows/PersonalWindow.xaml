@@ -28,8 +28,8 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <StackPanel Margin="75,79,199,282">
-            <TextBox x:Name="find" BorderThickness="1" Width="517" Height="25" />
+        <StackPanel Margin="75,73,199,267">
+            <TextBox x:Name="find" BorderThickness="1" Width="508" Height="25" />
             <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
         </StackPanel>
     </Grid>

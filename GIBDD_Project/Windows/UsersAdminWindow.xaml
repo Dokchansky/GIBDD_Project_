@@ -35,9 +35,9 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <StackPanel Margin="75,71,262,290">
-            <TextBox x:Name="find" BorderThickness="1" Width="450" Height="25" />
-            <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
+        <StackPanel Margin="92,60,243,280">
+            <TextBox x:Name="find" BorderThickness="1" Width="440" Height="25" />
+            <Button  Content="Найти" Click="Button_Click" Height="27" Width="119" Margin="5" HorizontalAlignment="Right"/>
         </StackPanel>
 
     </Grid>

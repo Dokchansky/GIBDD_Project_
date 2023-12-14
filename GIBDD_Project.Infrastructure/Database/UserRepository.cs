@@ -66,10 +66,9 @@ namespace GIBDD_Project.Infrastructure.Database
             entity.SurName = entity.SurName.Trim();
             entity.Name = entity.Name.Trim();
             entity.Patronymic = entity.Patronymic.Trim();
-            entity.Birthday = entity.Birthday.Trim();
             entity.Gender = entity.Gender.Trim();
             // Проверка наличия заполненных полей.
-            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Birthday) || string.IsNullOrEmpty(entity.Gender))
+            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Gender))
             {
                 throw new Exception("Не все поля заполнены");
             }
@@ -88,13 +87,14 @@ namespace GIBDD_Project.Infrastructure.Database
         }
         public UserViewModel Add(UserEntity entity) // Метод для добавления нового клиента в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
+
             entity.SurName = entity.SurName.Trim();
             entity.Name = entity.Name.Trim();
             entity.Patronymic = entity.Patronymic.Trim();
-            entity.Birthday = entity.Birthday.Trim();
             entity.Gender = entity.Gender.Trim();
+            
             // Проверка наличия заполненных полей.
-            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Birthday) || string.IsNullOrEmpty(entity.Gender))
+            if (string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.Patronymic)  || string.IsNullOrEmpty(entity.Gender.ToString()))
             {
                 throw new Exception("Не все поля заполнены");
             }
