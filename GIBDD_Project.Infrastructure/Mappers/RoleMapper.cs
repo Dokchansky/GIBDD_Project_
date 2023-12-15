@@ -9,9 +9,11 @@ namespace GIBDD_Project.Infrastructure.Mappers
 {
     public class RoleMapper
     {
-        public static RoleViewModel Map(RoleEntity entity)
+        public static RoleViewModel Map(RoleEntity entity)// Метод для отображения сущности PositionEntity на представление PositionViewModel.
         {
-            var viewModel = new RoleViewModel
+            if (entity == null) // Проверка наличия сущности.
+                return null;
+            var viewModel = new RoleViewModel// Создание объекта представления и копирование данных из сущности.
             {
                 ID = entity.ID,
                 Name = entity.Name,
@@ -19,25 +21,21 @@ namespace GIBDD_Project.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static RoleEntity Map(RoleViewModel viewModel)
+        public static RoleEntity Map(RoleViewModel viewModel) // Метод для отображения представления PositionViewModel на сущность PositionEntity.
         {
-            var entity = new RoleEntity
+            if (viewModel == null)// Проверка наличия сущности.
+                return null;
+            var entity = new RoleEntity// Создание объекта сущности и копирование данных из представления.
             {
                 ID = viewModel.ID,
                 Name = viewModel.Name,
-
             };
+
             return entity;
         }
-
-        public static List<RoleEntity> Map(List<RoleViewModel> viewModels)
+        public static List<RoleViewModel> Map(List<RoleEntity> entities)// Метод для отображения списка сущностей PositionEntity на список представлений PositionViewModel.
         {
-            var entities = viewModels.Select(vm => Map(vm)).ToList();
-            return entities;
-        }
-        public static List<RoleViewModel> Map(List<RoleEntity> entities)
-        {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

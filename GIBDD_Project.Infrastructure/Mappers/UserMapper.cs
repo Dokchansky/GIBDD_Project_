@@ -22,7 +22,7 @@ namespace GIBDD_Project.Infrastructure.Mappers
                 Login = entity.Login,
                 Password = entity.Password,
                 RoleID = entity.RoleID,
-                RoleName = entity.Role.Name,
+                Role = RoleMapper.Map(entity.Role),
 
 
 
@@ -44,19 +44,15 @@ namespace GIBDD_Project.Infrastructure.Mappers
                 Login = viewModel.Login,
                 Password = viewModel.Password,
                 RoleID = viewModel.RoleID,
+                Role = RoleMapper.Map(viewModel.Role),
 
             };
             return entity;
         }
 
-        public static List<UserEntity> Map(List<UserViewModel> viewModels)
+        public static List<UserViewModel> Map(List<UserEntity> entities)// Метод для отображения списка сущностей EmployeeEntity на список представлений EmployeeViewModel.
         {
-            var entities = viewModels.Select(vm => Map(vm)).ToList();
-            return entities;
-        }
-        public static List<UserViewModel> Map(List<UserEntity> entities)
-        {
-            var viewModels = entities.Select(x => Map(x)).ToList();
+            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
             return viewModels;
         }
     }

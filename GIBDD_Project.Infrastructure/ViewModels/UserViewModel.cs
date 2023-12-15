@@ -17,7 +17,6 @@ namespace GIBDD_Project.Infrastructure.ViewModels
         public string Login { get; set; }
         public string Password { get; set; }
         public long RoleID { get; set; }
-        public string RoleName { get; set; }
         public RoleViewModel Role {  get; set; }
     }
 }

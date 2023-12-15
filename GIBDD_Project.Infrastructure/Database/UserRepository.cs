@@ -24,135 +24,92 @@ namespace GIBDD_Project.Infrastructure.Database
             }
 
         }
-        public List<UserViewModel> GetList()
-        {
+        public UserViewModel Update(UserEntity entity)// Метод для обновления данных сотрудника в базе данных.
+        {// Обрезка строковых полей от лишних пробелов.
+            entity.Name = entity.Name.Trim();
+            entity.SurName = entity.SurName.Trim();
+            entity.Patronymic = entity.Patronymic.Trim();
+            entity.Birthday = entity.Birthday.Trim();
+            entity.Gender = entity.Gender.Trim();
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Gender) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
-                var items = context.Users.ToList();
-                return UserMapper.Map(items);
-            }
-        }
-        public List<UserViewModel> GetRoles()
-        {
-            using (var context = new Context())
-            {
-                var items = context.Users.ToList();
-                return UserMapper.Map(items);
-            }
-        }
+                var existingClient = context.Users.Find(entity.ID);
 
-        public UserViewModel Delete(long id)
+                if (existingClient != null)
+                {// Обновление данных существующего сотрудника.
+                    context.Entry(existingClient).CurrentValues.SetValues(entity);
+                    context.SaveChanges();
+                }
+            }
+            return UserMapper.Map(entity);
+        }
+        public UserViewModel Delete(long id)// Метод для удаления сотрудника из базы данных по идентификатору.
         {
             using (var context = new Context())
             {
                 var clientToRemove = context.Users.FirstOrDefault(c => c.ID == id);
                 if (clientToRemove != null)
                 {
-                    context.Users.Remove(clientToRemove);
+                    context.Users.Remove(clientToRemove);// Удаление сотрудника из базы данных.
                     context.SaveChanges();
                 }
                 return UserMapper.Map(clientToRemove);
             }
         }
-        public List<UserViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
-        {
-            search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
-
+        public UserViewModel Add(UserEntity entity)// Метод для добавления нового сотрудника в базу данных.
+        {// Обрезка строковых полей от лишних пробелов.
+            entity.Name = entity.Name.Trim();
+            entity.SurName = entity.SurName.Trim();
+            entity.Patronymic = entity.Patronymic.Trim();
+            entity.Birthday = entity.Birthday.Trim();
+            entity.Gender = entity.Gender.Trim();
+            entity.Login = entity.Login.Trim();
+            entity.Password = entity.Password.Trim();
+            // Проверка наличия заполненных полей.
+            if (string.IsNullOrEmpty(entity.Name) || string.IsNullOrEmpty(entity.SurName) || string.IsNullOrEmpty(entity.Patronymic) || string.IsNullOrEmpty(entity.Gender) || string.IsNullOrEmpty(entity.Login) || string.IsNullOrEmpty(entity.Password))
+            {
+                throw new Exception("Не все поля заполнены");
+            }
             using (var context = new Context())
             {
-                var result = context.Users.Include(x => x.Transport)
-    .Where(x =>
-        (x.Name.ToLower().Contains(search) ||
-        x.SurName.ToLower().Contains(search) ||
-        x.Patronymic.ToLower().Contains(search)) &&
-        (x.Name.Length == search.Length ||
-        x.SurName.Length == search.Length ||
-        x.Patronymic.Length == search.Length))
-    .ToList();
+                context.Users.Add(entity);// Добавление нового сотрудника в базу данных.
+                context.SaveChanges();
+            }
+            return UserMapper.Map(entity);
+        }
+        public List<UserViewModel> GetList()// Метод для получения списка сотрудников из базы данных.
+        {
+            using (var context = new Context())
+            {
+                var items = context.Users.Include(x => x.Role).ToList();// Извлечение сотрудников из базы данных, включая связанные сущности, такие как должность.
+                return UserMapper.Map(items);// Преобразование сущностей в ViewModel.
+            }
+        }
+        public UserViewModel GetById(long id)// Метод для получения сотрудника по идентификатору из базы данных.
+        {
+            using (var context = new Context())
+            {
+                var item = context.Users.FirstOrDefault(x => x.ID == id);
+                return UserMapper.Map(item);// Преобразование сущности в ViewModel.
+            }
+        }
+        public List<UserViewModel> Search(string search)// Метод для поиска сотрудников по имени в базе данных.
+        {
+            search = search.Trim().ToLower(); // Обрезка строки поиска и приведение к нижнему регистру.
+
+            using (var context = new Context())
+            {// Поиск сотрудников по имени в базе данных, включая связанные сущности, такие как должность.
+                var result = context.Users.Include(x => x.Role).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
                 return UserMapper.Map(result);
             }
 
-        }
-        public UserViewModel Update(UserViewModel viewModel)
-        {
-            using (var context = new Context())
-            {
-                var entity = context.Users.FirstOrDefault(x => x.ID == viewModel.ID);
-                if (entity == null)
-                    return null;
-
-                entity.Name = viewModel.Name;
-                if (entity.Name == "Имя")
-                {
-                    throw new Exception("Имя не может быть пустым");
-                }
-                entity.SurName = viewModel.SurName;
-                if (entity.SurName == "Фамилия")
-                {
-                    throw new Exception("Фамилия не может быть пустой");
-                }
-
-                entity.Patronymic = viewModel.Patronymic;
-                if (entity.Patronymic == "Отчество")
-                {
-                    entity.Patronymic = "";
-                }
-                
-                entity.Gender = viewModel.Gender;
-                if (entity.Gender == "Пол")
-                {
-                    throw new Exception("Пол не может быть пустым");
-                }
-                entity.Birthday = viewModel.Birthday;
-
-                if (!DateTime.TryParseExact(entity.Birthday, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                {
-                    throw new Exception("Дата должна быть в формате даты (например, 25.11.2023)");
-                }
-                entity.RoleID = viewModel.RoleID;
-
-                context.SaveChanges();
-
-                return UserMapper.Map(entity);
-            }
-        }
-        public UserViewModel Add(UserViewModel viewModel)
-        {
-            using (var context = new Context())
-            {
-                var entity = UserMapper.Map(viewModel);
-
-
-                if (entity.Name == "Имя")
-                {
-                    throw new Exception("Имя не может быть пустым");
-                }
-                if (entity.SurName == "Фамилия")
-                {
-                    throw new Exception("Фамилия не может быть пустой");
-                }
-
-                if (entity.Patronymic == "Отчество")
-                {
-                    entity.Patronymic = "";
-                }
-                if (entity.Gender == "Пол")
-                {
-                    throw new Exception("Пол не может быть пустым");
-                }
-
-                if (!DateTime.TryParseExact(entity.Birthday, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                {
-                    throw new Exception("Дата должна быть в формате даты (например, 25.11.2023)");
-                }
-
-
-                context.Users.Add(entity);
-
-                context.SaveChanges();
-
-                return UserMapper.Map(entity);
-            }
         }
     }
 }

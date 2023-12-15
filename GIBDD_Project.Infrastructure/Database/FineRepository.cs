@@ -80,5 +80,18 @@ namespace GIBDD_Project.Infrastructure.Database
             }
             return FineMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
+        public FineViewModel Delete(long id)// Метод для удаления сотрудника из базы данных по идентификатору.
+        {
+            using (var context = new Context())
+            {
+                var clientToRemove = context.Fines.FirstOrDefault(c => c.ID == id);
+                if (clientToRemove != null)
+                {
+                    context.Fines.Remove(clientToRemove);// Удаление сотрудника из базы данных.
+                    context.SaveChanges();
+                }
+                return FineMapper.Map(clientToRemove);
+            }
+        }
     }
 }

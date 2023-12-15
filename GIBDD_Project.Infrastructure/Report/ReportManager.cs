@@ -12,7 +12,6 @@ namespace GIBDD_Project.Infrastructure.Report
     public class ReportManager
     {
 
-
         public byte[] GenerateReport<TEntity>(IEnumerable<TEntity> info)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -23,7 +22,7 @@ namespace GIBDD_Project.Infrastructure.Report
             var font = sheet.Cells.Style.Font;
             font.Name = "Times New Roman";
             font.Size = 12;
-            var color = ColorTranslator.FromHtml("#FF0000");
+            var color = ColorTranslator.FromHtml("#FFCC00");
             sheet.Cells.Style.Font.Color.SetColor(color);
             return package.GetAsByteArray();
 

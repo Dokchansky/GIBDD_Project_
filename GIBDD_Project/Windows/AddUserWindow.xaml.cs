@@ -30,95 +30,85 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class AddUserWindow : Window
     {
-        private UserViewModel _selectedItem = null;// Переменная для хранения выбранного элемента 
-        private UserRepository _repository = new UserRepository();// Репозиторий для работы с пользователями 
-        private RoleRepository repository = new RoleRepository();// Репозиторий для работы с ролью 
+        private UserViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
+        private UserRepository _repository = new UserRepository();// Репозиторий для работы с сотрудниками
+        private RoleRepository repository = new RoleRepository();// Репозиторий для работы с должностями
         public AddUserWindow()
         {
             InitializeComponent();
-            Title = "Добавление пользователя";
-            var roles = _repository.GetRoles();
-            role_user.ItemsSource = roles;
-            role_user.SelectedItem = roles.FirstOrDefault();
+            role_user.ItemsSource = repository.GetList();// Заполнение списка должностей в окне
         }
 
         public AddUserWindow(UserViewModel selectedItem)
         {
             InitializeComponent();
             _selectedItem = selectedItem;
-
+            FillFormFields();// Заполнение полей формы выбранными значениями
+        }
+        private void FillFormFields()
+        {
             if (_selectedItem != null)
-            {
-                surname_user.Text = _selectedItem.SurName;
+            {// Заполнение полей формы значениями выбранного элемента
                 name_user.Text = _selectedItem.Name;
+                surname_user.Text = _selectedItem.SurName;
                 patronymic_user.Text = _selectedItem.Patronymic;
                 birthday_user.Text = _selectedItem.Birthday;
+                login_user.Text = _selectedItem.Login;
+                password_user.Text = _selectedItem.Password;
                 gender_user.Text = _selectedItem.Gender;
+                role_user.ItemsSource = repository.GetList();
+                var result = new List<RoleViewModel>();// Заполнение списка должностей в окне
+                foreach (RoleViewModel role in role_user.ItemsSource)
+                {
+                    if (_selectedItem.Role.Name == role.Name)
+                    {
+                        role_user.SelectedItem = role;// Установка выбранного элемента в списке должностей
+                        break;
+                    }
+                    else
+                    {
+                        result.Add(role);
+                    }
+                    role_user.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
+                }
 
-                var roles = _repository.GetRoles();
-                role_user.ItemsSource = roles;
-                role_user.SelectedItem = roles.FirstOrDefault(p => p.RoleName == _selectedItem.RoleName);
             }
         }
-        
         private void Button_Add(object sender, RoutedEventArgs e)
         {
             try
             {
-                RoleViewModel selected = role_user.SelectedItem as RoleViewModel;
-                // Заполняем или обновляем данные в _selectedItem
-                if (_selectedItem == null)
+                RoleViewModel selected = role_user.SelectedItem as RoleViewModel;// Получение выбранной должности
+                UserEntity entity = new UserEntity // Создание объекта с данными сотрудника
                 {
-                    _selectedItem = new UserViewModel();
-                }
-                if (role_user.SelectedValue == null || (long)role_user.SelectedValue == 0)
-                {
-                    throw new Exception("Группа должна быть выбрана");
-                }
-                // Заполняем или обновляем данные в _selectedItem
-                _selectedItem.RoleID = (long)role_user.SelectedValue;
-                _selectedItem.SurName = surname_user.Text;
-                _selectedItem.Patronymic = patronymic_user.Text;
-                _selectedItem.Name = name_user.Text;
-                _selectedItem.Birthday = birthday_user.Text;
-                _selectedItem.Gender = gender_user.Text;
-                _selectedItem.RoleID = selected.ID;
+                    Name = name_user.Text,
+                    SurName = surname_user.Text,
+                    Patronymic = patronymic_user.Text,
+                    Birthday = birthday_user.Text,
+                    Login = login_user.Text,
+                    Password = password_user.Text,
+                    Gender = gender_user.Text,
+                    RoleID = selected.ID// Запись ID выбранной должности
+                };
 
 
-
-                // Операция создания или обновления
-                if (_selectedItem.ID == 0)
+                if (_selectedItem != null)
                 {
-                    // Создание нового элемента
-                    _repository.Add(_selectedItem);
-                    MessageBox.Show("Запись успешно добавлена.", "Сохранение завершено", MessageBoxButton.OK, MessageBoxImage.Information);
+                    entity.ID = _selectedItem.ID;
+                    _repository.Update(entity);// Обновление данных сотрудника
                 }
                 else
                 {
-                    // Обновление существующего элемента
-                    _repository.Update(_selectedItem);
-                    MessageBox.Show("Запись успешно обновлена.", "Сохранение завершено", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _repository.Add(entity);// Добавление нового сотрудника
                 }
 
-                // Закрытие формы после сохранения данных
-                Close();
+                MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении
+                this.Close();// Закрытие окна
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Произошла ошибка при сохранении данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);// Вывод сообщения об ошибке
             }
-        }
-        private void Button_Menu(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
-        private void Button_Back(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            UsersAdminWindow usersWindow = new UsersAdminWindow();
-            usersWindow.Show();
         }
     }
 }

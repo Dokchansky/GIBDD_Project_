@@ -1,9 +1,12 @@
 ﻿using GIBDD_Project.Infrastructure.Database;
 using GIBDD_Project.Infrastructure.QR;
+using GIBDD_Project.Infrastructure.Report;
 using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,43 +47,25 @@ namespace GIBDD_Project.Windows
             addFineWindow.Show();
             Close();
         }
-        private void Delete_Click(object sender, RoutedEventArgs e)
+
+        private void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (FineGrid.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Не выбран объект для удаления");
-            //    return;
-            //}
+            try
+            {
+                var reportManager = new ReportManager();
+                var data = reportManager.GenerateReport(FineGrid.ItemsSource as List<FineViewModel>);
 
-            //var item = FineGrid.SelectedItem as UserViewModel;
-            //if (item == null)
-            //{
-            //    MessageBox.Show("Не удалось получить данные");
-            //    return;
-            //}
-
-            //userRepository.Delete(item.ID);
-            //UpdateGrid();
-        }
-        private void ExportButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            //try
-            //{
-            //    var reportManager = new ReportManager();
-            //    var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
-
-            //    var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Клиенты_{DateTime.Now.ToShortDateString()}.xlsx");
-            //    using (var stream = new FileStream(path, FileMode.OpenOrCreate))
-            //    {
-            //        stream.Write(data, 0, data.Length);
-            //    }
-            //    MessageBox.Show("Выгрузка успешна");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Выгрузка неуспешна");
-            //}
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Штрафы_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+                MessageBox.Show("Выгрузка успешна");
+            }
+            catch
+            {
+                MessageBox.Show("Выгрузка неуспешна");
+            }
 
         }
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -100,17 +85,41 @@ namespace GIBDD_Project.Windows
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //string search = find.Text;
-            //if (string.IsNullOrEmpty(search))
-            //{
-            //    FineGrid.ItemsSource = userRepository.GetList(); // Показать все элементы, если запрос пуст.
-            //}
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                FineGrid.ItemsSource = _repository.GetList(); // Показать все элементы, если запрос пуст.
+            }
 
-            //else
-            //{
-            //    List<UserViewModel> searchResult = userRepository.Search(search);// Выполнить поиск по запросу.
-            //    personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
-            //}
+            else
+            {
+                List<FineViewModel> searchResult = _repository.Search(search);// Выполнить поиск по запросу.
+                FineGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+            }
+        }
+        private void UpdateGrid()
+        {
+            FineGrid.ItemsSource = _repository.GetList();// Установка источника данных таблицы из репозитория.
+        }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверка, выбран ли сотрудник для удаления.
+            if (FineGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для удаления");
+                return;
+            }
+            // Получение выбранного объекта из таблицы
+            var item = FineGrid.SelectedItem as FineViewModel;
+            // Проверка, удалось ли получить данные о сотруднике
+            if (item == null)
+            {
+                MessageBox.Show("Не удалось получить данные");
+                return;
+            }
+            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            _repository.Delete(item.ID);
+            UpdateGrid();
         }
 
 

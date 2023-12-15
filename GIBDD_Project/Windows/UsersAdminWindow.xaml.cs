@@ -58,19 +58,17 @@ namespace GIBDD_Project.Windows
         }
 
         // Метод для экспорта списка пользователей в файл Excel 
-        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        private void UploadButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var reportManager = new ReportManager(); // Экземпляр репорт-менеджера для создания отчетов 
-                                                         // Генерация отчета с данными пользователей 
+                var reportManager = new ReportManager();
                 var data = reportManager.GenerateReport(userGrid.ItemsSource as List<UserViewModel>);
 
-                // Определение пути для сохранения экспортируемого файла 
                 var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Пользователи_{DateTime.Now.ToShortDateString()}.xlsx");
                 using (var stream = new FileStream(path, FileMode.OpenOrCreate))
                 {
-                    stream.Write(data, 0, data.Length); // Запись данных в файл 
+                    stream.Write(data, 0, data.Length);
                 }
                 MessageBox.Show("Выгрузка успешна");
             }
@@ -78,6 +76,7 @@ namespace GIBDD_Project.Windows
             {
                 MessageBox.Show("Выгрузка неуспешна");
             }
+
         }
         // Метод для генерации QR-кода для выбранного пользователя 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -112,6 +111,26 @@ namespace GIBDD_Project.Windows
         private void UpdateGrid()
         {
             userGrid.ItemsSource = userRepository.GetList();// Установка источника данных таблицы из репозитория.
+        }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверка, выбран ли сотрудник для удаления.
+            if (userGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для удаления");
+                return;
+            }
+            // Получение выбранного объекта из таблицы
+            var item = userGrid.SelectedItem as UserViewModel;
+            // Проверка, удалось ли получить данные о сотруднике
+            if (item == null)
+            {
+                MessageBox.Show("Не удалось получить данные");
+                return;
+            }
+            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            userRepository.Delete(item.ID);
+            UpdateGrid();
         }
     }
 }

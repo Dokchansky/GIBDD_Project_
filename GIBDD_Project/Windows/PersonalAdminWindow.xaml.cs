@@ -111,7 +111,7 @@ namespace GIBDD_Project.Windows
 
             else
             {
-                List<UserViewModel> searchResult = userRepository.Search(search);// Выполнить поиск по запросу.
+                List<TransportViewModel> searchResult = transportRepository.Search(search);// Выполнить поиск по запросу.
                 personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
         }
