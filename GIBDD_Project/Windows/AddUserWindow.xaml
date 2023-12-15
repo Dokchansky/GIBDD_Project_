@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Height="450" Width="800">
     <Grid>
-        <Label Content="{Binding Title}"/>
+        <Label Content="{Binding Title}" Height="450" Width="800"/>
         <StackPanel Height="20" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
             <TextBlock Text="Федеральный орган ГИБДД" Height="20" Width="250" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" FontSize="16"/>
         </StackPanel>
@@ -28,15 +28,7 @@
             <Label Content="Пол" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
             <TextBox x:Name="gender_user"/>
             <Label Content="Роль" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
-            <ComboBox x:Name="role_user" Width="147">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox x:Name="role_user" Width="147" DisplayMemberPath="Name"/>
             <Button Content="Добавить" Margin="0,10" Width="120" Height="30" Click="Button_Add"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">

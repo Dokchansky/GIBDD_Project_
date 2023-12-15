@@ -1,9 +1,12 @@
 ﻿using GIBDD_Project.Infrastructure.Database;
 using GIBDD_Project.Infrastructure.QR;
+using GIBDD_Project.Infrastructure.Report;
 using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,67 +25,61 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class UsersAdminWindow : Window
     {
+        // Репозиторий пользователей для взаимодействия с данными пользователей 
         private UserRepository userRepository;
+        // Модель-представление пользователя для работы с данными  
+        private UserViewModel userViewModel;
+
+
         public UsersAdminWindow()
         {
-            InitializeComponent();
-            Title = "Список пользователей";
-            userRepository = new UserRepository();
+            InitializeComponent(); // Инициализирует компоненты окна 
+            Title = "Список пользователей"; // Устанавливает заголовок окна 
+            userRepository = new UserRepository(); // Создает экземпляр репозитория 
 
-            userGrid.ItemsSource = userRepository.GetList();
+            userGrid.ItemsSource = userRepository.GetList(); // Задает источник данных для списка пользователей 
+            UpdateGrid(); // Обновляет данные в таблице пользователей 
         }
+
+        // Обработчик события для кнопки "Меню" - возврат в окно админа 
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
-            Hide();
-            AdminWindow adminWindow = new AdminWindow();
-            adminWindow.Show();
-            Close();
+            Hide(); // Скрывает текущее окно 
+            AdminWindow adminWindow = new AdminWindow(); // Создает новое окно администратора 
+            adminWindow.Show(); // Показывает окно админа 
+            Close(); // Закрывает текущее окно 
         }
+        // Обработчик события для кнопки "Добавить" - открытие окна добавления пользователя 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            Hide();
-            AddUserWindow addUserWindow = new AddUserWindow();
-            addUserWindow.Show();
+            Hide(); // Скрывает текущее окно 
+            AddUserWindow addUserWindow = new AddUserWindow(); // Создает окно для добавления пользователя 
+            addUserWindow.Show(); // Отображает окно для добавления пользователя 
         }
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            if (userGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Не выбран объект для удаления");
-                return;
-            }
 
-            var item = userGrid.SelectedItem as UserViewModel;
-            if (item == null)
-            {
-                MessageBox.Show("Не удалось получить данные");
-                return;
-            }
-
-            userRepository.Delete(item.ID);
-            UpdateGrid();
-        }
+        // Метод для экспорта списка пользователей в файл Excel 
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var reportManager = new ReportManager(); // Экземпляр репорт-менеджера для создания отчетов 
+                                                         // Генерация отчета с данными пользователей 
+                var data = reportManager.GenerateReport(userGrid.ItemsSource as List<UserViewModel>);
 
-            //try
-            //{
-            //    var reportManager = new ReportManager();
-            //    var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
-
-            //    var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Клиенты_{DateTime.Now.ToShortDateString()}.xlsx");
-            //    using (var stream = new FileStream(path, FileMode.OpenOrCreate))
-            //    {
-            //        stream.Write(data, 0, data.Length);
-            //    }
-            //    MessageBox.Show("Выгрузка успешна");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Выгрузка неуспешна");
-            //}
-
+                // Определение пути для сохранения экспортируемого файла 
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Пользователи_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length); // Запись данных в файл 
+                }
+                MessageBox.Show("Выгрузка успешна");
+            }
+            catch
+            {
+                MessageBox.Show("Выгрузка неуспешна");
+            }
         }
+        // Метод для генерации QR-кода для выбранного пользователя 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             if (userGrid.SelectedItem != null)
