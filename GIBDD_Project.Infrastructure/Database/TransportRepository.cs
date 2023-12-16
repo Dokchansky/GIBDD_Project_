@@ -47,6 +47,14 @@ namespace GIBDD_Project.Infrastructure.Database
                 return TransportMapper.Map(item);
             }
         }
+        public List<TransportViewModel> GetByCarCategoryId(long id)
+        {
+            using (var context = new Context())
+            {
+                var item = context.Transports.Where(x => x.CarCategoryID == id).ToList();
+                return TransportMapper.Map(item);
+            }
+        }
         public TransportViewModel Add(TransportEntity entity, BrandEntity entity1)// Метод для добавления новой программы занятий в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
             entity1.Name = entity1.Name.Trim();

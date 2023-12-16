@@ -121,7 +121,7 @@ namespace GIBDD_Project.Windows
             _repository.Delete(item.ID);
             UpdateGrid();
         }
-
+        
 
     }
 }

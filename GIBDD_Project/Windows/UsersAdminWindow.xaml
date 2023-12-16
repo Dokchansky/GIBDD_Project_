@@ -26,9 +26,10 @@
                 <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding RoleName}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,143,0,0">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,143,0,0" Height="291">
             <Button Content="Добавить" Click="Button_Add" Margin="5,15" Height="35" Width="200"/>
             <Button Content="Удалить" Height="35" Width="200" Click="Delete_Click"/>
+            <Button Content="Изменить" Height="35" Width="200" Click="Change" Margin="5,15"/>
             <Button x:Name="Export" Content="Выгрузить" Click="UploadButton_Click" Margin="5,15" Height="35" Width="200"/>
             <Button x:Name="QR" Content="QR" Click="GenerateButton_Click" Margin="5,15" Height="35" Width="200"/>
         </StackPanel>

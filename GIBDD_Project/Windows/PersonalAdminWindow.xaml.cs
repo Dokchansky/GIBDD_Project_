@@ -1,9 +1,12 @@
 ﻿using GIBDD_Project.Infrastructure.Database;
 using GIBDD_Project.Infrastructure.QR;
+using GIBDD_Project.Infrastructure.Report;
 using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,41 +52,47 @@ namespace GIBDD_Project.Windows
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка, выбран ли сотрудник для удаления.
             if (personalGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
                 return;
             }
-
-            var item = personalGrid.SelectedItem as UserViewModel;
+            // Получение выбранного объекта из таблицы
+            var item = personalGrid.SelectedItem as TransportViewModel;
+            // Проверка, удалось ли получить данные о сотруднике
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-
-            userRepository.Delete(item.ID);
-            //UpdateGrid();
+            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            transportRepository.Delete(item.ID);
+            UpdateGrid();
+        }
+        private void UpdateGrid()
+        {
+            personalGrid.ItemsSource = transportRepository.GetList();// Установка источника данных таблицы из репозитория.
         }
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //try
-            //{
-            //    var reportManager = new ReportManager();
-            //    var data = reportManager.GenerateReport(ClientsGrid.ItemsSource as List<ClientViewModel>);
+            try
+            {
+                var reportManager = new ReportManager();
+                var data = reportManager.GenerateReport(personalGrid.ItemsSource as List<TransportViewModel>);
 
-            //    var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Клиенты_{DateTime.Now.ToShortDateString()}.xlsx");
-            //    using (var stream = new FileStream(path, FileMode.OpenOrCreate))
-            //    {
-            //        stream.Write(data, 0, data.Length);
-            //    }
-            //    MessageBox.Show("Выгрузка успешна");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Выгрузка неуспешна");
-            //}
+                var path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Авто_{DateTime.Now.ToShortDateString()}.xlsx");
+                using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+                MessageBox.Show("Выгрузка успешна");
+            }
+            catch
+            {
+                MessageBox.Show("Выгрузка неуспешна");
+            }
 
         }
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
@@ -106,7 +115,7 @@ namespace GIBDD_Project.Windows
             string search = find.Text;
             if (string.IsNullOrEmpty(search))
             {
-                personalGrid.ItemsSource = userRepository.GetList(); // Показать все элементы, если запрос пуст.
+                personalGrid.ItemsSource = transportRepository.GetList(); // Показать все элементы, если запрос пуст.
             }
 
             else
@@ -114,6 +123,8 @@ namespace GIBDD_Project.Windows
                 List<TransportViewModel> searchResult = transportRepository.Search(search);// Выполнить поиск по запросу.
                 personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
             }
+            
         }
+        
     }
 }

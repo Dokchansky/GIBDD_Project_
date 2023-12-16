@@ -102,8 +102,10 @@ namespace GIBDD_Project.Windows
                     _repository.Add(entity);// Добавление нового сотрудника
                 }
 
-                MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении
-                this.Close();// Закрытие окна
+                MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении  
+                UsersAdminWindow userWindow = new UsersAdminWindow();
+                userWindow.Show();
+                Close();
             }
             catch (Exception ex)
             {

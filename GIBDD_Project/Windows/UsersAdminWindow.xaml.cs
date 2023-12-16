@@ -28,7 +28,7 @@ namespace GIBDD_Project.Windows
         // Репозиторий пользователей для взаимодействия с данными пользователей 
         private UserRepository userRepository;
         // Модель-представление пользователя для работы с данными  
-        private UserViewModel userViewModel;
+
 
 
         public UsersAdminWindow()
@@ -114,7 +114,7 @@ namespace GIBDD_Project.Windows
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            // Проверка, выбран ли сотрудник для удаления.
+            // Проверка, выбран ли пользователь для удаления.
             if (userGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
@@ -122,14 +122,26 @@ namespace GIBDD_Project.Windows
             }
             // Получение выбранного объекта из таблицы
             var item = userGrid.SelectedItem as UserViewModel;
-            // Проверка, удалось ли получить данные о сотруднике
+            // Проверка, удалось ли получить данные о пользователе
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            // Удаление пользователя из репозитория и обновление данных в таблице.
             userRepository.Delete(item.ID);
+            UpdateGrid();
+        }
+        private void Change(object sender, RoutedEventArgs e)
+        { // Проверка наличия выбранного объекта в таблице.
+            if (userGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Не выбран объект для изменения");
+                return;
+            }
+            // Открытие окна редактирования для выбранного объекта и обновление данных в таблице.
+            var userCard = new AddUserWindow(userGrid.SelectedItem as UserViewModel);
+            userCard.ShowDialog();
             UpdateGrid();
         }
     }
