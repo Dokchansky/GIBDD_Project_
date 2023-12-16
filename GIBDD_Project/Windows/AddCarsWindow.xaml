@@ -7,33 +7,39 @@
         mc:Ignorable="d"
          ResizeMode="NoResize"
  WindowStartupLocation="CenterScreen"
- Height="450" Width="800">
+ Height="583" Width="300">
     <Grid>
         <Label Content="{Binding Title}"/>
-        <StackPanel Height="20" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-            <TextBlock Text="Федеральный орган ГИБДД" Height="20" Width="250" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" FontSize="16"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
-            <Image Source="gibdd.png"/>
-        </StackPanel>
-        <StackPanel Margin="325,56,322,25">
-            <Label Content="Марка" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
+        <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,66,0,66">
+            <Label Content="Марка" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
             <TextBox x:Name="brand_name"/>
-            <Label Content="Тип кузова" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
-            <TextBox x:Name="car_category"/>
-            <Label Content="Дата выпуска" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
+            <Label Content="Тип кузова" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
+            <ComboBox x:Name="car_category">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Дата выпуска" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
             <TextBox x:Name="year_car"/>
-            <Label Content="Гос.номер" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
+            <Label Content="Гос.номер" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250"/>
             <TextBox x:Name="state_number"/>
-            <Label Content="Статус угона" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
+            <Label Content="Статус угона" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250"/>
             <TextBox x:Name="status_car"/>
+            <Label Content="Пользователь" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250"/>
+            <ComboBox x:Name="user_login" Width="250">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Login}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button Content="Добавить" Margin="0,25" Width="120" Height="30" Click="Button_Click"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
-            <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="179,0,0,25">
-            <Button Content="Назад" Click="Button_Back" Height="30" Width="120"/>
         </StackPanel>
     </Grid>
 </Window>

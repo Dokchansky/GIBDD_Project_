@@ -23,85 +23,112 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class AddCarsWindow : Window
     {
+        private TransportViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
+        private TransportRepository _repository = new TransportRepository();// Репозиторий для работы с сотрудниками
+        private UserViewModel _selectedItem3 = null;
+        private UserRepository repository = new UserRepository();// Репозиторий для работы с должностями
+        private BrandViewModel _selectedItem1 = null;
+        private BrandRepository _repository1 = new BrandRepository();
+        private CarCategoryViewModel _selectedItem2 = null;
+        private CarCategoryRepository _repository2 = new CarCategoryRepository();
         public AddCarsWindow()
         {
             InitializeComponent();
+            user_login.ItemsSource = repository.GetList();
+            car_category.ItemsSource = _repository2.GetList();
         }
-        private void Button_Menu(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            AdminWindow adminWindow = new AdminWindow();
-            adminWindow.Show();
-            Close();
-        }
-        private void Button_Back(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            PersonalAdminWindow personalWindow = new PersonalAdminWindow();
-            personalWindow.Show();
-            Close();
-        }
-        private TransportViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
-        private TransportRepository _repository = new TransportRepository();// Репозиторий для работы с программами занятий
-        private BrandViewModel _selectedItem1 = null;
-        private BrandRepository _repository1 = new BrandRepository();
-        public AddCarsWindow(TransportViewModel selectedItem)
+
+
+        public AddCarsWindow(TransportViewModel selectedItem, CarCategoryViewModel selectedItem2, BrandViewModel selectedItem1, UserViewModel selectedItem3)
         {
             InitializeComponent();
             _selectedItem = selectedItem;
             FillFormFields();// Заполнение полей формы выбранными значениями
+            _selectedItem2 = selectedItem2;
+            _selectedItem1 = selectedItem1;
+            _selectedItem3 = selectedItem3;
         }
         private void FillFormFields()
         {
-            if (_selectedItem != null)
+            if (_selectedItem != null && _selectedItem1 != null && _selectedItem2 != null)
             {// Заполнение полей формы значениями выбранного элемента
                 brand_name.Text = _selectedItem.BrandName;
-                car_category.Text = _selectedItem.CarCategoryName;
                 year_car.Text = _selectedItem.Year;
                 state_number.Text = _selectedItem.StateNumber;
                 status_car.Text = _selectedItem.Status;
+                user_login.ItemsSource = repository.GetList();
+                var result = new List<UserViewModel>();// Заполнение списка должностей в окне
+                foreach (UserViewModel state in user_login.ItemsSource)
+                {
+                    if (_selectedItem3.Login == state.Login)
+                    {
+                        user_login.SelectedItem = state;// Установка выбранного элемента в списке должностей
+                        break;
+                    }
+                    else
+                    {
+                        result.Add(state);
+                    }
+                    user_login.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
+                }
+                car_category.ItemsSource = _repository2.GetList();
+                var result2 = new List<CarCategoryViewModel>();// Заполнение списка должностей в окне
+                foreach (CarCategoryViewModel state2 in car_category.ItemsSource)
+                {
+                    if (_selectedItem2.Name == state2.Name)
+                    {
+                        car_category.SelectedItem = state2;// Установка выбранного элемента в списке должностей
+                        break;
+                    }
+                    else
+                    {
+                        result2.Add(state2);
+                    }
+                    car_category.SelectedItem = result2[0];// Установка первого элемента списка должностей по умолчанию
+                }
+
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                TransportEntity entity = new TransportEntity();
-                BrandEntity entity1 = new BrandEntity();// Создание объекта с данными программ занятий
+                CarCategoryViewModel selected2 = new CarCategoryViewModel();
+                UserViewModel selected = new UserViewModel();
                 CarCategoryEntity entity2 = new CarCategoryEntity();
-                entity1.Name = brand_name.Text;
-                entity2.Name = car_category.Text;
-                entity.Year = year_car.Text;
-                entity.StateNumber = state_number.Text;
-                entity.Status = status_car.Text;
+                BrandEntity entity1 = new BrandEntity()
+                {
+                    Name = brand_name.Text,
+                };
+    
+                TransportEntity entity = new TransportEntity()
+                {
+                    CarCategoryID = selected2.ID,
+                    Year = year_car.Text,
+                    StateNumber = state_number.Text,
+                    Status = status_car.Text,
+                    UserID = selected.ID,
+                };
+                    // Создание объекта с данными программ занятий
 
-
-                if (_selectedItem != null && _selectedItem1 != null)
-                {
-                    entity.ID = _selectedItem.ID; 
-                    entity1.ID = _selectedItem.BrandID;
-                    _repository.Update(entity, entity1, entity2);// Обновление данных программы занятий
-                }
-                else
-                {
-                    _repository.Add(entity, entity1, entity2);// Добавление новой программы занятий
-                }
-                if (_selectedItem1 != null) 
-                {
-                    entity1.ID = _selectedItem1.ID;
-                    _repository1.Update(entity, entity1,entity2);
-
-                }
-                else
-                {
-                    _repository1.Add(entity,entity1, entity2);
-                }
                 
+
+
+                if (_selectedItem != null && _selectedItem1 != null && _selectedItem2 != null && _selectedItem3 != null)
+                {
+                    entity.ID = _selectedItem.ID;
+                    entity1.ID = _selectedItem1.ID;
+                    _repository.Update(entity, entity1);// Обновление данных программы занятий
+                }
+                else
+                {
+                    _repository.Add(entity, entity1);// Добавление новой программы занятий
+                }
 
                 MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении
                 this.Close();// Закрытие окна
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);// Вывод сообщения об ошибке
             }

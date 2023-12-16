@@ -22,26 +22,16 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class AddFineWindow : Window
     {
+        private FineViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
+        private FineRepository _repository = new FineRepository();// Репозиторий для работы с сотрудниками
+        private TransportViewModel _selectedItem2 = null;
+        private TransportRepository repository = new TransportRepository();// Репозиторий для работы с должностями
         public AddFineWindow()
         {
             InitializeComponent();
+            state_number.ItemsSource = repository.GetList();// Заполнение списка должностей в окне
         }
-        private void Button_Menu(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            AdminWindow adminWindow = new AdminWindow();
-            adminWindow.Show();
-            Close();
-        }
-        private void Button_Back(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            FineAdminWindow fineadmWindow = new FineAdminWindow();
-            fineadmWindow.Show();
-            Close();
-        }
-        private FineViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
-        private FineRepository _repository = new FineRepository();// Репозиторий для работы с программами занятий
+
         public AddFineWindow(FineViewModel selectedItem)
         {
             InitializeComponent();
@@ -55,26 +45,46 @@ namespace GIBDD_Project.Windows
                 name_fine.Text = _selectedItem.Name;
                 value_fine.Text = _selectedItem.Value;
                 status_fine.Text = _selectedItem.Status;
+                state_number.ItemsSource = repository.GetList();
+                var result = new List<TransportViewModel>();// Заполнение списка должностей в окне
+                foreach (TransportViewModel state in state_number.ItemsSource)
+                {
+                    if (_selectedItem.Transport.StateNumber == state.StateNumber)
+                    {
+                        state_number.SelectedItem = state;// Установка выбранного элемента в списке должностей
+                        break;
+                    }
+                    else
+                    {
+                        result.Add(state);
+                    }
+                    state_number.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
+                }
+
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                FineEntity entity = new FineEntity();// Создание объекта с данными программ занятий
-                entity.Name = name_fine.Text;
-                entity.Value = value_fine.Text;
-                entity.Status = status_fine.Text;
+                TransportViewModel selected = state_number.SelectedItem as TransportViewModel;// Получение выбранной должности
+                FineEntity entity = new FineEntity // Создание объекта с данными сотрудника
+                {
+                    Name = name_fine.Text,
+                    Value = value_fine.Text,
+                    Status = status_fine.Text,
+                    TransportID = selected.ID// Запись ID выбранной должности
+                };
 
 
                 if (_selectedItem != null)
                 {
                     entity.ID = _selectedItem.ID;
-                    _repository.Update(entity);// Обновление данных программы занятий
+                    _repository.Update(entity);// Обновление данных сотрудника
                 }
                 else
                 {
-                    _repository.Add(entity);// Добавление новой программы занятий
+                    _repository.Add(entity);// Добавление нового сотрудника
                 }
 
                 MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении
@@ -84,8 +94,7 @@ namespace GIBDD_Project.Windows
             {
                 MessageBox.Show(ex.Message);// Вывод сообщения об ошибке
             }
-
         }
-        
+
     }
 }

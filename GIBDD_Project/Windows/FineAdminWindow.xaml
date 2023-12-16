@@ -21,6 +21,7 @@ Height="450" Width="800">
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Value}"/>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Гос.номер" Binding="{Binding TransportStateNumber}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">

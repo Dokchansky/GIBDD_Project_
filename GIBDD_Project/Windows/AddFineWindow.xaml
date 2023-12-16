@@ -7,30 +7,28 @@
         mc:Ignorable="d"
          ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    Height="450" Width="800">
+    Height="583" Width="300">
     <Grid>
         <Label Content="{Binding Title}"/>
-        <StackPanel Height="20" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-            <TextBlock Text="Федеральный орган ГИБДД" Height="20" Width="250" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" FontSize="16"/>
+        <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,91,0,58">
+            <Label Content="Название" />
+            <TextBox x:Name="name_fine" Width="250"  />
+            <Label Content="Стоимость" />
+            <TextBox x:Name="value_fine" Width="250" />
+            <Label Content="Статус" />
+            <TextBox x:Name="status_fine"  Width="250" />
+            <Label Content="Гос.номер"/>
+            <ComboBox x:Name="state_number" Width="250">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding StateNumber}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Добавить" Margin="0,55" Width="252" Height="30" Click="Button_Click"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
-            <Image Source="gibdd.png"/>
-        </StackPanel>
-        <StackPanel Margin="325,56,322,35">
-            <Label Content="Название" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
-            <TextBox x:Name="name_fine"/>
-            <Label Content="Стоимость" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
-            <TextBox x:Name="value_fine"/>
 
-            <Label Content="Статус" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed"/>
-            <TextBox x:Name="status_fine"/>
-            <Button Content="Добавить" Margin="0,55" Width="120" Height="30" Click="Button_Click"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
-            <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="179,0,0,25">
-            <Button Content="Назад" Click="Button_Back" Height="30" Width="120"/>
-        </StackPanel>
     </Grid>
 </Window>
