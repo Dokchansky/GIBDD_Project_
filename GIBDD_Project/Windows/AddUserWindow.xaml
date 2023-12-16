@@ -7,21 +7,21 @@
         mc:Ignorable="d"
         Height="583" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,2,0,13">
-        <Label Content="Имя" />
+        <Label Content="Имя" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="name_user" Width="250"  />
-        <Label Content="Фамилия" />
+        <Label Content="Фамилия" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="surname_user" Width="250" />
-        <Label Content="Отчество" />
+        <Label Content="Отчество" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="patronymic_user"  Width="250" />
-        <Label Content="Дата рождения" />
+        <Label Content="Дата рождения" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="birthday_user" Width="250" />
-        <Label Content="Логин" />
+        <Label Content="Логин" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="login_user" Width="250" />
-        <Label Content="Пароль" />
+        <Label Content="Пароль" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="password_user" Width="250" />
-        <Label Content="Пол" />
+        <Label Content="Пол" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <TextBox x:Name="gender_user" Width="250" />
-        <Label Content="Роль" />
+        <Label Content="Роль" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
         <ComboBox x:Name="role_user" Width="250">
             <ComboBox.ItemTemplate>
                 <DataTemplate>

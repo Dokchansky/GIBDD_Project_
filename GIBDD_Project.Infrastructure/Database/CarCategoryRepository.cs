@@ -18,7 +18,7 @@ namespace GIBDD_Project.Infrastructure.Database
                 return CarCategoryMapper.Map(items);
             }
         }
-        public UserViewModel GetById(long id)// Метод для получения сотрудника по идентификатору из базы данных.
+        public UserViewModel GetById(long id)// Метод для получения пользователя по идентификатору из базы данных.
         {
             using (var context = new Context())
             {

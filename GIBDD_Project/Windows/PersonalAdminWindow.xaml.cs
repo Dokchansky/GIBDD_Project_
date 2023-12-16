@@ -52,7 +52,7 @@ namespace GIBDD_Project.Windows
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            // Проверка, выбран ли сотрудник для удаления.
+            // Проверка, выбран ли автомобиль для удаления.
             if (personalGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
@@ -60,13 +60,13 @@ namespace GIBDD_Project.Windows
             }
             // Получение выбранного объекта из таблицы
             var item = personalGrid.SelectedItem as TransportViewModel;
-            // Проверка, удалось ли получить данные о сотруднике
+            // Проверка, удалось ли получить данные о автомобиле
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            // Удаление автомобиля из репозитория и обновление данных в таблице.
             transportRepository.Delete(item.ID);
             UpdateGrid();
         }
@@ -74,7 +74,7 @@ namespace GIBDD_Project.Windows
         {
             personalGrid.ItemsSource = transportRepository.GetList();// Установка источника данных таблицы из репозитория.
         }
-        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        private void ExportButton_Click(object sender, RoutedEventArgs e) // Выгрузка данных в Excel
         {
 
             try
@@ -95,7 +95,7 @@ namespace GIBDD_Project.Windows
             }
 
         }
-        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        private void GenerateButton_Click(object sender, RoutedEventArgs e) // Генерация QR кода
         {
             if (personalGrid.SelectedItem != null)
             {

@@ -9,11 +9,11 @@ namespace GIBDD_Project.Infrastructure.Mappers
 {
     public class RoleMapper
     {
-        public static RoleViewModel Map(RoleEntity entity)// Метод для отображения сущности PositionEntity на представление PositionViewModel.
+        public static RoleViewModel Map(RoleEntity entity)
         {
-            if (entity == null) // Проверка наличия сущности.
+            if (entity == null) 
                 return null;
-            var viewModel = new RoleViewModel// Создание объекта представления и копирование данных из сущности.
+            var viewModel = new RoleViewModel
             {
                 ID = entity.ID,
                 Name = entity.Name,
@@ -21,11 +21,11 @@ namespace GIBDD_Project.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static RoleEntity Map(RoleViewModel viewModel) // Метод для отображения представления PositionViewModel на сущность PositionEntity.
+        public static RoleEntity Map(RoleViewModel viewModel) 
         {
-            if (viewModel == null)// Проверка наличия сущности.
+            if (viewModel == null)
                 return null;
-            var entity = new RoleEntity// Создание объекта сущности и копирование данных из представления.
+            var entity = new RoleEntity
             {
                 ID = viewModel.ID,
                 Name = viewModel.Name,
@@ -33,9 +33,9 @@ namespace GIBDD_Project.Infrastructure.Mappers
 
             return entity;
         }
-        public static List<RoleViewModel> Map(List<RoleEntity> entities)// Метод для отображения списка сущностей PositionEntity на список представлений PositionViewModel.
+        public static List<RoleViewModel> Map(List<RoleEntity> entities)
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
+            var viewModels = entities.Select(x => Map(x)).ToList();
             return viewModels;
         }
     }

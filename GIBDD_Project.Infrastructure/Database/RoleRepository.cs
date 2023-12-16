@@ -10,14 +10,14 @@ namespace GIBDD_Project.Infrastructure.Database
 {
     public class RoleRepository
     {
-        public RoleViewModel Update(RoleEntity entity)// Метод для обновления данных должности в базе данных.
+        public RoleViewModel Update(RoleEntity entity)// Метод для обновления данных роли в базе данных.
         {
             using (var context = new Context())
             {
                 var existingClient = context.Roles.Find(entity.ID);
 
                 if (existingClient != null)
-                {// Обновление данных существующего должности.
+                {// Обновление данных существующего роли.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
                     context.SaveChanges();
                 }
@@ -25,24 +25,24 @@ namespace GIBDD_Project.Infrastructure.Database
             return RoleMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
 
-        public RoleViewModel Add(RoleEntity entity)// Метод для добавления новой должности в базу данных.
+        public RoleViewModel Add(RoleEntity entity)// Метод для добавления новой роли в базу данных.
         {
             using (var context = new Context())
             {
-                context.Roles.Add(entity);// Добавление новой должности в базу данных.
+                context.Roles.Add(entity);// Добавление новой роли в базу данных.
                 context.SaveChanges();
             }
             return RoleMapper.Map(entity);
         }
-        public List<RoleViewModel> GetList()// Метод для получения списка должностей из базы данных.
+        public List<RoleViewModel> GetList()// Метод для получения списка ролей из базы данных.
         {
             using (var context = new Context())
             {
-                var items = context.Roles.ToList();// Извлечение должностей из базы данных, включая связанные сущности, такие как скидки.
+                var items = context.Roles.ToList();// Извлечение ролей из базы данных, включая связанные сущности.
                 return RoleMapper.Map(items);
             }
         }
-        public RoleViewModel GetById(long id)// Метод для получения должности по идентификатору из базы данных.
+        public RoleViewModel GetById(long id)// Метод для получения роли по идентификатору из базы данных.
         {
             using (var context = new Context())
             {
@@ -50,14 +50,14 @@ namespace GIBDD_Project.Infrastructure.Database
                 return RoleMapper.Map(item);
             }
         }
-        public RoleViewModel Delete(long id)// Метод для удаления должности из базы данных по идентификатору.
+        public RoleViewModel Delete(long id)// Метод для удаления роли из базы данных по идентификатору.
         {
             using (var context = new Context())
             {
                 var clientToRemove = context.Roles.FirstOrDefault(c => c.ID == id);
                 if (clientToRemove != null)
                 {
-                    context.Roles.Remove(clientToRemove);// Удаление должности из базы данных.
+                    context.Roles.Remove(clientToRemove);// Удаление роли из базы данных.
                     context.SaveChanges();
                 }
                 return RoleMapper.Map(clientToRemove);

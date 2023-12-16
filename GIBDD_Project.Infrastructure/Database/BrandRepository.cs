@@ -27,7 +27,7 @@ namespace GIBDD_Project.Infrastructure.Database
                 return BrandMapper.Map(item);
             }
         }
-        public BrandViewModel Add(TransportEntity entity, BrandEntity entity1, CarCategoryEntity entity2)// Метод для добавления новой программы занятий в базу данных.
+        public BrandViewModel Add(TransportEntity entity, BrandEntity entity1, CarCategoryEntity entity2)// Метод для добавления новой марки в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
             entity1.Name = entity1.Name.Trim();
             entity2.Name = entity2.Name.Trim();
@@ -42,13 +42,13 @@ namespace GIBDD_Project.Infrastructure.Database
             }
             using (var context = new Context())
             {
-                context.Brands.Add(entity1);// Добавление новой программы занятий в базу данных.
+                context.Brands.Add(entity1);// Добавление новой марки в базу данных.
                 context.SaveChanges();
             }
             return BrandMapper.Map(entity1);
         }
 
-        public BrandViewModel Update(TransportEntity entity, BrandEntity entity1, CarCategoryEntity entity2)// Метод для обновления данных программы занятий в базе данных.
+        public BrandViewModel Update(TransportEntity entity, BrandEntity entity1, CarCategoryEntity entity2)// Метод для обновления данных марки в базе данных.
         {// Обрезка строковых полей от лишних пробелов.
 
             entity1.Name = entity1.Name.Trim();
@@ -67,7 +67,7 @@ namespace GIBDD_Project.Infrastructure.Database
                 var existingClient = context.Brands.Find(entity.ID);
 
                 if (existingClient != null)
-                {// Обновление данных существующей программы занятий.
+                {// Обновление данных существующей марки.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
                     context.SaveChanges();
                 }

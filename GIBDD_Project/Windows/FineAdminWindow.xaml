@@ -27,13 +27,13 @@ Height="450" Width="800">
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <StackPanel Margin="83,65,254,307">
-            <TextBox x:Name="find" BorderThickness="1" Width="450" Height="25" />
+        <StackPanel Margin="83,65,254,262">
+            <TextBox x:Name="find" BorderThickness="1" Width="430" Height="25" />
             <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,143,0,0">
             <Button Content="Добавить" Click="Button_Add" Margin="5,15" Height="35" Width="200"/>
-            <Button Content="Удалить" Height="35" Width="200" Click="Delete_Click"/>
+            <Button Content="Удалить" Height="35" Width="200" Click="Delete_Click" Margin="5,15"/>
             <Button x:Name="Export" Content="Выгрузить" Click="UploadButton_Click" Margin="5,15" Height="35" Width="200"/>
             <Button x:Name="QR" Content="QR" Click="GenerateButton_Click" Margin="5,15" Height="35" Width="200"/>
         </StackPanel>

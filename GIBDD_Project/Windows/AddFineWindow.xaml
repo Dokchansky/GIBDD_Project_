@@ -11,13 +11,13 @@
     <Grid>
         <Label Content="{Binding Title}"/>
         <StackPanel HorizontalAlignment="Center" Width="250" Margin="0,91,0,58">
-            <Label Content="Название" />
+            <Label Content="Название" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
             <TextBox x:Name="name_fine" Width="250"  />
-            <Label Content="Стоимость" />
+            <Label Content="Стоимость" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
             <TextBox x:Name="value_fine" Width="250" />
-            <Label Content="Статус" />
+            <Label Content="Статус" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250" />
             <TextBox x:Name="status_fine"  Width="250" />
-            <Label Content="Гос.номер"/>
+            <Label Content="Гос.номер" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" Width="250"/>
             <ComboBox x:Name="state_number" Width="250">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

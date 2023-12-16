@@ -57,13 +57,18 @@ namespace GIBDD_Project.Windows
                 return;
             }
 
-
+            // Установление соединения с контекстом базы данных
             using (Infrastructure.Context context = new Infrastructure.Context())
             {
+                // Проверка существует ли пользователь с указанным логином, паролем и ролью ID 2 (роль пользователя)
                 var user = context.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.RoleID == 2);
+                // Проверка существует ли пользователь с указанным логином, паролем и ролью ID 1 (роль администратора)
                 var user1 = context.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.RoleID == 1);
+
+                // Если пользователь с ролью ID 2 существует, установить информацию о пользователе и показать главное окно
                 if (user != null)
                 {
+
                     Application.Current.Resources[UserInfoConsts.RoleID] = 2;
                     Application.Current.Resources[UserInfoConsts.RoleName] = " Пользователь";
                     Application.Current.Resources[UserInfoConsts.UserName] = $" {login}";
@@ -72,8 +77,11 @@ namespace GIBDD_Project.Windows
                     mainWindow.Show();
                     Close();
                 }
+
+                // Если пользователь с ролью ID 1 существует, установить информацию об администраторе и показать окно администратора
                 else if (user1 != null)
                 {
+                    
                     Application.Current.Resources[UserInfoConsts.RoleID] = 1;
                     Application.Current.Resources[UserInfoConsts.RoleName] = " Администратор";
                     Application.Current.Resources[UserInfoConsts.UserName] = $" {login}";
@@ -82,6 +90,7 @@ namespace GIBDD_Project.Windows
                     adminWindow.Show();
                     Close();
                 }
+                // Если пользователь с указанными учетными данными не найден, показать сообщение об ошибке
                 else
                 {
                     MessageBox.Show("Неверный логин или пароль");
@@ -95,6 +104,7 @@ namespace GIBDD_Project.Windows
 
         private void Button_Guest(object sender, RoutedEventArgs e)
         {
+            // Если пользователь с ролью ID 3 существует, установить информацию о пользователе и показать окно гостя
             Application.Current.Resources[UserInfoConsts.RoleID] = 3;
             Application.Current.Resources[UserInfoConsts.RoleName] = " Гость";
             Application.Current.Resources[UserInfoConsts.UserName] = " Гость";

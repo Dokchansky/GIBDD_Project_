@@ -23,13 +23,13 @@ namespace GIBDD_Project.Windows
     public partial class AddFineWindow : Window
     {
         private FineViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
-        private FineRepository _repository = new FineRepository();// Репозиторий для работы с сотрудниками
+        private FineRepository _repository = new FineRepository();// Репозиторий для работы со штрафами
         private TransportViewModel _selectedItem2 = null;
-        private TransportRepository repository = new TransportRepository();// Репозиторий для работы с должностями
+        private TransportRepository repository = new TransportRepository();// Репозиторий для работы с автомобилями 
         public AddFineWindow()
         {
             InitializeComponent();
-            state_number.ItemsSource = repository.GetList();// Заполнение списка должностей в окне
+            state_number.ItemsSource = repository.GetList();// Заполнение списка гос.номеров в окне
         }
 
         public AddFineWindow(FineViewModel selectedItem)
@@ -46,19 +46,19 @@ namespace GIBDD_Project.Windows
                 value_fine.Text = _selectedItem.Value;
                 status_fine.Text = _selectedItem.Status;
                 state_number.ItemsSource = repository.GetList();
-                var result = new List<TransportViewModel>();// Заполнение списка должностей в окне
+                var result = new List<TransportViewModel>();// Заполнение списка автомобилей в окне
                 foreach (TransportViewModel state in state_number.ItemsSource)
                 {
                     if (_selectedItem.Transport.StateNumber == state.StateNumber)
                     {
-                        state_number.SelectedItem = state;// Установка выбранного элемента в списке должностей
+                        state_number.SelectedItem = state;// Установка выбранного элемента в списке автомобилей
                         break;
                     }
                     else
                     {
                         result.Add(state);
                     }
-                    state_number.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
+                    state_number.SelectedItem = result[0];// Установка первого элемента списка автомобилей по умолчанию
                 }
 
             }
@@ -67,24 +67,24 @@ namespace GIBDD_Project.Windows
         {
             try
             {
-                TransportViewModel selected = state_number.SelectedItem as TransportViewModel;// Получение выбранной должности
+                TransportViewModel selected = state_number.SelectedItem as TransportViewModel;// Получение выбранного транспорт
                 FineEntity entity = new FineEntity // Создание объекта с данными сотрудника
                 {
                     Name = name_fine.Text,
                     Value = value_fine.Text,
                     Status = status_fine.Text,
-                    TransportID = selected.ID// Запись ID выбранной должности
+                    TransportID = selected.ID// Запись ID выбранного транспорта
                 };
 
 
                 if (_selectedItem != null)
                 {
                     entity.ID = _selectedItem.ID;
-                    _repository.Update(entity);// Обновление данных сотрудника
+                    _repository.Update(entity);// Обновление данных штрафа
                 }
                 else
                 {
-                    _repository.Add(entity);// Добавление нового сотрудника
+                    _repository.Add(entity);// Добавление нового штрафа
                 }
 
                 MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении  

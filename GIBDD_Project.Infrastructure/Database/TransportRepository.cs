@@ -55,7 +55,7 @@ namespace GIBDD_Project.Infrastructure.Database
                 return TransportMapper.Map(item);
             }
         }
-        public TransportViewModel Add(TransportEntity entity, BrandEntity entity1)// Метод для добавления новой программы занятий в базу данных.
+        public TransportViewModel Add(TransportEntity entity, BrandEntity entity1)// Метод для добавления нового транспорта в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
             entity1.Name = entity1.Name.Trim();
 
@@ -71,12 +71,12 @@ namespace GIBDD_Project.Infrastructure.Database
             using (var context = new Context())
             {
                 context.Transports.Add(entity);
-                context.Brands.Add(entity1); // Добавление новой программы занятий в базу данных.
+                context.Brands.Add(entity1); // Добавление нового транспорта в базу данных.
                 context.SaveChanges();
             }
             return TransportMapper.Map(entity);
         }
-        public List<TransportViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
+        public List<TransportViewModel> Search(string search)// Метод для поиска транспорта по гос.номеру в базе данных.
         {
             search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
 
@@ -87,7 +87,7 @@ namespace GIBDD_Project.Infrastructure.Database
             }
 
         }
-        public TransportViewModel Update(TransportEntity entity, BrandEntity entity1)// Метод для обновления данных программы занятий в базе данных.
+        public TransportViewModel Update(TransportEntity entity, BrandEntity entity1)// Метод для обновления данных транспорта в базе данных.
         {// Обрезка строковых полей от лишних пробелов.
 
             entity1.Name = entity1.Name.Trim();
@@ -109,7 +109,7 @@ namespace GIBDD_Project.Infrastructure.Database
 
 
                 if (existingClient != null)
-                {// Обновление данных существующей программы занятий.
+                {// Обновление данных существующего транспорта.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
                     context.Entry(existingClient1).CurrentValues.SetValues(entity1);
 
@@ -118,14 +118,14 @@ namespace GIBDD_Project.Infrastructure.Database
             }
             return TransportMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
-        public TransportViewModel Delete(long id)// Метод для удаления сотрудника из базы данных по идентификатору.
+        public TransportViewModel Delete(long id)// Метод для удаления транспорта из базы данных по идентификатору.
         {
             using (var context = new Context())
             {
                 var clientToRemove = context.Transports.FirstOrDefault(c => c.ID == id);
                 if (clientToRemove != null)
                 {
-                    context.Transports.Remove(clientToRemove);// Удаление сотрудника из базы данных.
+                    context.Transports.Remove(clientToRemove);// Удаление транспорта из базы данных.
                     context.SaveChanges();
                 }
                 return TransportMapper.Map(clientToRemove);

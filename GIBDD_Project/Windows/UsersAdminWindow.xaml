@@ -26,18 +26,18 @@
                 <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding RoleName}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,143,0,0" Height="291">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,84,0,0" Height="332">
             <Button Content="Добавить" Click="Button_Add" Margin="5,15" Height="35" Width="200"/>
-            <Button Content="Удалить" Height="35" Width="200" Click="Delete_Click"/>
+            <Button Content="Удалить" Height="35" Width="200" Click="Delete_Click" Margin="5,15"/>
             <Button Content="Изменить" Height="35" Width="200" Click="Change" Margin="5,15"/>
-            <Button x:Name="Export" Content="Выгрузить" Click="UploadButton_Click" Margin="5,15" Height="35" Width="200"/>
+            <Button x:Name="Export" Content="Выгрузить" Click="UploadButton_Click" Height="35" Width="200" Margin="5,15"/>
             <Button x:Name="QR" Content="QR" Click="GenerateButton_Click" Margin="5,15" Height="35" Width="200"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
         </StackPanel>
-        <StackPanel Margin="92,60,243,280">
-            <TextBox x:Name="find" BorderThickness="1" Width="440" Height="25" />
+        <StackPanel Margin="92,60,243,259">
+            <TextBox x:Name="find" BorderThickness="1" Width="429" Height="25" />
             <Button  Content="Найти" Click="Button_Click" Height="27" Width="119" Margin="5" HorizontalAlignment="Right"/>
         </StackPanel>
 

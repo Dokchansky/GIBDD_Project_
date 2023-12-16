@@ -50,9 +50,9 @@ namespace GIBDD_Project.Infrastructure.Mappers
             return entity;
         }
 
-        public static List<UserViewModel> Map(List<UserEntity> entities)// Метод для отображения списка сущностей EmployeeEntity на список представлений EmployeeViewModel.
+        public static List<UserViewModel> Map(List<UserEntity> entities)
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
+            var viewModels = entities.Select(x => Map(x)).ToList();
             return viewModels;
         }
     }

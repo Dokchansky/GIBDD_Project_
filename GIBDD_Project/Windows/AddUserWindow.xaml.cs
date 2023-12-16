@@ -31,12 +31,12 @@ namespace GIBDD_Project.Windows
     public partial class AddUserWindow : Window
     {
         private UserViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
-        private UserRepository _repository = new UserRepository();// Репозиторий для работы с сотрудниками
-        private RoleRepository repository = new RoleRepository();// Репозиторий для работы с должностями
+        private UserRepository _repository = new UserRepository();// Репозиторий для работы с пользователями
+        private RoleRepository repository = new RoleRepository();// Репозиторий для работы с ролями
         public AddUserWindow()
         {
             InitializeComponent();
-            role_user.ItemsSource = repository.GetList();// Заполнение списка должностей в окне
+            role_user.ItemsSource = repository.GetList();// Заполнение списка ролей в окне
         }
 
         public AddUserWindow(UserViewModel selectedItem)
@@ -57,19 +57,19 @@ namespace GIBDD_Project.Windows
                 password_user.Text = _selectedItem.Password;
                 gender_user.Text = _selectedItem.Gender;
                 role_user.ItemsSource = repository.GetList();
-                var result = new List<RoleViewModel>();// Заполнение списка должностей в окне
+                var result = new List<RoleViewModel>();// Заполнение списка ролей в окне
                 foreach (RoleViewModel role in role_user.ItemsSource)
                 {
                     if (_selectedItem.Role.Name == role.Name)
                     {
-                        role_user.SelectedItem = role;// Установка выбранного элемента в списке должностей
+                        role_user.SelectedItem = role;// Установка выбранного элемента в списке ролей
                         break;
                     }
                     else
                     {
                         result.Add(role);
                     }
-                    role_user.SelectedItem = result[0];// Установка первого элемента списка должностей по умолчанию
+                    role_user.SelectedItem = result[0];// Установка первого элемента списка ролей по умолчанию
                 }
 
             }
@@ -78,8 +78,8 @@ namespace GIBDD_Project.Windows
         {
             try
             {
-                RoleViewModel selected = role_user.SelectedItem as RoleViewModel;// Получение выбранной должности
-                UserEntity entity = new UserEntity // Создание объекта с данными сотрудника
+                RoleViewModel selected = role_user.SelectedItem as RoleViewModel;// Получение выбранной роли
+                UserEntity entity = new UserEntity // Создание объекта с данными пользователя
                 {
                     Name = name_user.Text,
                     SurName = surname_user.Text,
@@ -88,18 +88,18 @@ namespace GIBDD_Project.Windows
                     Login = login_user.Text,
                     Password = password_user.Text,
                     Gender = gender_user.Text,
-                    RoleID = selected.ID// Запись ID выбранной должности
+                    RoleID = selected.ID// Запись ID выбранной роли
                 };
 
 
                 if (_selectedItem != null)
                 {
                     entity.ID = _selectedItem.ID;
-                    _repository.Update(entity);// Обновление данных сотрудника
+                    _repository.Update(entity);// Обновление данных пользователя
                 }
                 else
                 {
-                    _repository.Add(entity);// Добавление нового сотрудника
+                    _repository.Add(entity);// Добавление нового пользователя
                 }
 
                 MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении  

@@ -9,11 +9,11 @@ namespace GIBDD_Project.Infrastructure.Mappers
 {
     public class CarCategoryMapper
     {
-        public static CarCategoryViewModel Map(CarCategoryEntity entity)// Метод для отображения сущности PositionEntity на представление PositionViewModel.
+        public static CarCategoryViewModel Map(CarCategoryEntity entity)
         {
-            if (entity == null) // Проверка наличия сущности.
+            if (entity == null) 
                 return null;
-            var viewModel = new CarCategoryViewModel// Создание объекта представления и копирование данных из сущности.
+            var viewModel = new CarCategoryViewModel
             {
                 ID = entity.ID,
                 Name = entity.Name,
@@ -22,11 +22,11 @@ namespace GIBDD_Project.Infrastructure.Mappers
             };
             return viewModel;
         }
-        public static CarCategoryEntity Map(CarCategoryViewModel viewModel) // Метод для отображения представления PositionViewModel на сущность PositionEntity.
+        public static CarCategoryEntity Map(CarCategoryViewModel viewModel)
         {
-            if (viewModel == null)// Проверка наличия сущности.
+            if (viewModel == null)
                 return null;
-            var entity = new CarCategoryEntity// Создание объекта сущности и копирование данных из представления.
+            var entity = new CarCategoryEntity
             {
                 ID = viewModel.ID,
                 Name = viewModel.Name,
@@ -34,9 +34,9 @@ namespace GIBDD_Project.Infrastructure.Mappers
 
             return entity;
         }
-        public static List<CarCategoryViewModel> Map(List<CarCategoryEntity> entities)// Метод для отображения списка сущностей PositionEntity на список представлений PositionViewModel.
+        public static List<CarCategoryViewModel> Map(List<CarCategoryEntity> entities)
         {
-            var viewModels = entities.Select(x => Map(x)).ToList();// Преобразование каждой сущности в соответствующее представление и создание списка представлений
+            var viewModels = entities.Select(x => Map(x)).ToList();
             return viewModels;
         }
 

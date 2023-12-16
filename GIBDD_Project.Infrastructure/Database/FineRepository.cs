@@ -27,7 +27,7 @@ namespace GIBDD_Project.Infrastructure.Database
                 return FineMapper.Map(item);
             }
         }
-        public FineViewModel Add(FineEntity entity)// Метод для добавления новой программы занятий в базу данных.
+        public FineViewModel Add(FineEntity entity)// Метод для добавления нового штрафа в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
             entity.Name = entity.Name.Trim();
             entity.Value = entity.Value.Trim();
@@ -40,12 +40,12 @@ namespace GIBDD_Project.Infrastructure.Database
             }
             using (var context = new Context())
             {
-                context.Fines.Add(entity);// Добавление новой программы занятий в базу данных.
+                context.Fines.Add(entity);// Добавление нового штрафа в базу данных.
                 context.SaveChanges();
             }
             return FineMapper.Map(entity);
         }
-        public List<FineViewModel> Search(string search)// Метод для поиска клиентов по имени в базе данных.
+        public List<FineViewModel> Search(string search)// Метод для поиска штрафов по названию в базе данных.
         {
             search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
 
@@ -56,7 +56,7 @@ namespace GIBDD_Project.Infrastructure.Database
             }
 
         }
-        public FineViewModel Update(FineEntity entity)// Метод для обновления данных программы занятий в базе данных.
+        public FineViewModel Update(FineEntity entity)// Метод для обновления данных штрафов в базе данных.
         {// Обрезка строковых полей от лишних пробелов.
 
             entity.Name = entity.Name.Trim();
@@ -73,21 +73,21 @@ namespace GIBDD_Project.Infrastructure.Database
                 var existingClient = context.Fines.Find(entity.ID);
 
                 if (existingClient != null)
-                {// Обновление данных существующей программы занятий.
+                {// Обновление данных существующего штрафа.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
                     context.SaveChanges();
                 }
             }
             return FineMapper.Map(entity);// Преобразование сущности в ViewModel.
         }
-        public FineViewModel Delete(long id)// Метод для удаления сотрудника из базы данных по идентификатору.
+        public FineViewModel Delete(long id)// Метод для удаления штрафа из базы данных по идентификатору.
         {
             using (var context = new Context())
             {
                 var clientToRemove = context.Fines.FirstOrDefault(c => c.ID == id);
                 if (clientToRemove != null)
                 {
-                    context.Fines.Remove(clientToRemove);// Удаление сотрудника из базы данных.
+                    context.Fines.Remove(clientToRemove);// Удаление штрафа из базы данных.
                     context.SaveChanges();
                 }
                 return FineMapper.Map(clientToRemove);

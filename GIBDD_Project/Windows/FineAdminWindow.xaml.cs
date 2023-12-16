@@ -103,7 +103,7 @@ namespace GIBDD_Project.Windows
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            // Проверка, выбран ли сотрудник для удаления.
+            // Проверка, выбран ли штраф для удаления.
             if (FineGrid.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран объект для удаления");
@@ -111,13 +111,13 @@ namespace GIBDD_Project.Windows
             }
             // Получение выбранного объекта из таблицы
             var item = FineGrid.SelectedItem as FineViewModel;
-            // Проверка, удалось ли получить данные о сотруднике
+            // Проверка, удалось ли получить данные о штрафе
             if (item == null)
             {
                 MessageBox.Show("Не удалось получить данные");
                 return;
             }
-            // Удаление сотрудника из репозитория и обновление данных в таблице.
+            // Удаление штрафа из репозитория и обновление данных в таблице.
             _repository.Delete(item.ID);
             UpdateGrid();
         }
