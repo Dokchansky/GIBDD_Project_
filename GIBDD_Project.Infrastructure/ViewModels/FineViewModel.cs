@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GIBDD_Project.Infrastructure.ViewModels
 {
-    public class FineViewModel
+    public partial class FineViewModel
     {
         public long ID { get; set; }
         public string Name { get; set; }

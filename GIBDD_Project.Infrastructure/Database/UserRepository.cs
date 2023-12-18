@@ -12,7 +12,7 @@ namespace GIBDD_Project.Infrastructure.Database
 {
     public partial class UserRepository
     {
-        private DateTime date;
+       
         public UserEntity Login(string login, string password)
         {
             using (var context = new Context())
@@ -105,8 +105,13 @@ namespace GIBDD_Project.Infrastructure.Database
             search = search.Trim().ToLower(); // Обрезка строки поиска и приведение к нижнему регистру.
 
             using (var context = new Context())
-            {// Поиск пользователей по имени в базе данных, включая связанные сущности, такие как роль.
-                var result = context.Users.Include(x => x.Role).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+            {
+                var result = context.Users
+                    .Where(x =>
+                        x.Name.ToLower().Contains(search) && x.Name.Length == search.Length ||
+                        x.SurName.ToLower().Contains(search) && x.SurName.Length == search.Length)
+                        .ToList();
+
                 return UserMapper.Map(result);
             }
 

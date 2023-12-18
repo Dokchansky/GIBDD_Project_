@@ -58,13 +58,12 @@ namespace GIBDD_Project.Infrastructure.Database
         public TransportViewModel Add(TransportEntity entity, BrandEntity entity1)// Метод для добавления нового транспорта в базу данных.
         {// Обрезка строковых полей от лишних пробелов.
             entity1.Name = entity1.Name.Trim();
-
             entity.Year = entity.Year.Trim();
             entity.StateNumber = entity.StateNumber.Trim();
             entity.Status = entity.Status.Trim();
 
             // Проверка наличия заполненных полей.
-            if (string.IsNullOrEmpty(entity1.Name)  || string.IsNullOrEmpty(entity.Year) || string.IsNullOrEmpty(entity.StateNumber) || string.IsNullOrEmpty(entity.Status.ToString()))
+            if (string.IsNullOrEmpty(entity1.Name) || string.IsNullOrEmpty(entity.Year) || string.IsNullOrEmpty(entity.StateNumber) || string.IsNullOrEmpty(entity.Status.ToString()))
             {
                 throw new Exception("Не все поля заполнены");
             }
@@ -76,13 +75,16 @@ namespace GIBDD_Project.Infrastructure.Database
             }
             return TransportMapper.Map(entity);
         }
-        public List<TransportViewModel> Search(string search)// Метод для поиска транспорта по гос.номеру в базе данных.
+        public List<TransportViewModel> Search(string search)// Метод для поиска транспорта по марке в базе данных.
         {
             search = search.Trim().ToLower();  // Обрезка строки поиска и приведение к нижнему регистру.
 
             using (var context = new Context())
             {
-                var result = context.Transports.Where(x => x.StateNumber.ToLower().Contains(search) && x.StateNumber.Length == search.Length).ToList();
+                var result = context.Transports
+                    .Where(x =>
+                        x.StateNumber.ToLower().Contains(search) && x.StateNumber.Length == search.Length ||
+                        x.Brand.Name.ToLower().Contains(search) && x.Brand.Name.Length == search.Length).ToList();
                 return TransportMapper.Map(result);
             }
 
@@ -91,7 +93,7 @@ namespace GIBDD_Project.Infrastructure.Database
         {// Обрезка строковых полей от лишних пробелов.
 
             entity1.Name = entity1.Name.Trim();
-
+           
             entity.Year = entity.Year.Trim();
             entity.StateNumber = entity.StateNumber.Trim();
             entity.Status = entity.Status.Trim();
@@ -106,13 +108,13 @@ namespace GIBDD_Project.Infrastructure.Database
             {
                 var existingClient = context.Transports.Find(entity.ID);
                 var existingClient1 = context.Brands.Find(entity1.ID);
+               
 
 
                 if (existingClient != null)
                 {// Обновление данных существующего транспорта.
                     context.Entry(existingClient).CurrentValues.SetValues(entity);
-                    context.Entry(existingClient1).CurrentValues.SetValues(entity1);
-
+                    context.Entry(existingClient1).CurrentValues.SetValues(entity1);                   
                     context.SaveChanges();
                 }
             }

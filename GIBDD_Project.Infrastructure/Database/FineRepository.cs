@@ -51,10 +51,14 @@ namespace GIBDD_Project.Infrastructure.Database
 
             using (var context = new Context())
             {
-                var result = context.Fines.Include(x => x.Transport).Where(x => x.Name.ToLower().Contains(search) && x.Name.Length == search.Length).ToList();
+                var result = context.Fines.Include(x => x.Transport)
+                    .Where(x =>
+                        x.Name.ToLower().Contains(search) && x.Name.Length == search.Length ||
+                        x.Transport.StateNumber.ToLower().Contains(search) && x.Transport.StateNumber.Length == search.Length)
+                    .ToList();
+
                 return FineMapper.Map(result);
             }
-
         }
         public FineViewModel Update(FineEntity entity)// Метод для обновления данных штрафов в базе данных.
         {// Обрезка строковых полей от лишних пробелов.

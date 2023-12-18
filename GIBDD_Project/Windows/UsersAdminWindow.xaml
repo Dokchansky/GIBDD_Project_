@@ -23,7 +23,7 @@
                 <DataGridTextColumn Header="Отчество" CanUserReorder="False" Binding="{Binding Patronymic}"/>
                 <DataGridTextColumn Header="Дата рождения" CanUserReorder="False" Binding="{Binding Birthday}"/>
                 <DataGridTextColumn Header="Пол" CanUserReorder="False" Binding="{Binding Gender}"/>
-                <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding RoleName}"/>
+                <DataGridTextColumn Header="Роль" CanUserReorder="False" Binding="{Binding  Role.Name }"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,84,0,0" Height="332">
