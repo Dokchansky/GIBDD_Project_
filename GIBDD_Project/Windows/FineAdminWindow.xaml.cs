@@ -121,18 +121,7 @@ namespace GIBDD_Project.Windows
             _repository.Delete(item.ID);
             UpdateGrid();
         }
-        private void Change(object sender, RoutedEventArgs e)
-        { // Проверка наличия выбранного объекта в таблице.
-            if (FineGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Не выбран объект для изменения");
-                return;
-            }
-            // Открытие окна редактирования для выбранного объекта и обновление данных в таблице.
-            var userCard = new AddFineWindow(FineGrid.SelectedItem as FineViewModel);
-            userCard.ShowDialog();
-            UpdateGrid();
-        }
+       
 
     }
 }
