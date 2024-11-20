@@ -25,40 +25,39 @@ namespace GIBDD_Project.Windows
         {
             InitializeComponent();
             Title = "Окно администратора";
-            userNameTextBox.Text = Application.Current.Resources[UserInfoConsts.UserName].ToString();
-            roleTextBox.Text = Application.Current.Resources[UserInfoConsts.RoleName].ToString();
+            userNameTextBox.Text = Application.Current.Resources[UserInfoConsts.UserName].ToString(); // Вывод логина пользователя в окно
+            roleTextBox.Text = Application.Current.Resources[UserInfoConsts.RoleName].ToString(); // Вывод роли пользователя в окно
 
         }
 
-        private void Button_Personal(object sender, RoutedEventArgs e)
+        private void Button_Personal(object sender, RoutedEventArgs e) // Кнопка перехода в окно Автомобили
         {
             Hide();
-            PersonalWindow personalWindow = new PersonalWindow();
+            PersonalAdminWindow personalWindow = new PersonalAdminWindow();
             personalWindow.Show();
+            Close();
         }
-        private void Button_Cars(object sender, RoutedEventArgs e)
+
+        private void Button_Fines(object sender, RoutedEventArgs e) // Кнопка перехода в окно Штрафы
         {
             Hide();
-            CarsWindow carsWindow = new CarsWindow();
-            carsWindow.Show();
-        }
-        private void Button_Fines(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            FineWindow fineWindow = new FineWindow();
+            FineAdminWindow fineWindow = new FineAdminWindow();
             fineWindow.Show();
+            Close();
         }
-        private void Button_Exit(object sender, RoutedEventArgs e)
+        private void Button_Exit(object sender, RoutedEventArgs e) // Кнопка выхода
         {
             Hide();
             AuthWindow authWindow = new AuthWindow();
             authWindow.Show();
+            Close();
         }
-        private void Button_Users(object sender, RoutedEventArgs e)
+        private void Button_Users(object sender, RoutedEventArgs e) // Кнопка перехода в окно Пользователи
         {
             Hide();
-            UsersWindow usersWindow = new UsersWindow();
-            usersWindow.Show();
+            UsersAdminWindow usersadminWindow = new UsersAdminWindow();
+            usersadminWindow.Show();
+            Close();
         }
 
 

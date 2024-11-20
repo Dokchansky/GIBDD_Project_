@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GIBDD_Project.Infrastructure.ViewModels
 {
-    public class TransportViewModel
+    public partial class TransportViewModel
     {
         public long ID { get; set; }
         public string StateNumber { get; set; }
@@ -14,7 +14,12 @@ namespace GIBDD_Project.Infrastructure.ViewModels
         public string Year { get; set; }
         public long UserID { get; set; }
         public long BrandID { get; set; }
+        public long CarCategoryID { get; set; }
         public string BrandName { get; set; }
-
+        public string CarCategoryName { get; set; }
+        public BrandViewModel Brand { get; set; }
+        public CarCategoryViewModel CarCategory { get; set; }
+       
+        
     }
 }

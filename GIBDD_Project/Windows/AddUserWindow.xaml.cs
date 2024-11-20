@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GIBDD_Project.Infrastructure;
+using GIBDD_Project.Infrastructure.Database;
+using GIBDD_Project.Infrastructure.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +13,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using System.IO;
+using System.Reflection;
+using GIBDD_Project.Infrastructure.Mappers;
+using System.Runtime.Remoting.Messaging;
+using GIBDD_Project.Windows;
+using System.Data.Entity.Validation;
 
 namespace GIBDD_Project.Windows
 {
@@ -19,23 +30,87 @@ namespace GIBDD_Project.Windows
     /// </summary>
     public partial class AddUserWindow : Window
     {
+        private UserViewModel _selectedItem = null;// Переменная для хранения выбранного элемента
+        private UserRepository _repository = new UserRepository();// Репозиторий для работы с пользователями
+        private RoleRepository repository = new RoleRepository();// Репозиторий для работы с ролями
         public AddUserWindow()
         {
             InitializeComponent();
-            Title = "Добавление пользователя";
+            role_user.ItemsSource = repository.GetList();// Заполнение списка ролей в окне
+        }
 
-        }
-        private void Button_Menu(object sender, RoutedEventArgs e)
+        public AddUserWindow(UserViewModel selectedItem)
         {
-            Hide();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            InitializeComponent();
+            _selectedItem = selectedItem;
+            FillFormFields();// Заполнение полей формы выбранными значениями
         }
-        private void Button_Back(object sender, RoutedEventArgs e)
+        private void FillFormFields()
         {
-            Hide();
-            UsersWindow usersWindow = new UsersWindow();
-            usersWindow.Show();
+            if (_selectedItem != null)
+            {// Заполнение полей формы значениями выбранного элемента
+                name_user.Text = _selectedItem.Name;
+                surname_user.Text = _selectedItem.SurName;
+                patronymic_user.Text = _selectedItem.Patronymic;
+                birthday_user.Text = _selectedItem.Birthday;
+                login_user.Text = _selectedItem.Login;
+                password_user.Text = _selectedItem.Password;
+                gender_user.Text = _selectedItem.Gender;
+                role_user.ItemsSource = repository.GetList();
+                var result = new List<RoleViewModel>();// Заполнение списка ролей в окне
+                foreach (RoleViewModel role in role_user.ItemsSource)
+                {
+                    if (_selectedItem.Role.Name == role.Name)
+                    {
+                        role_user.SelectedItem = role;// Установка выбранного элемента в списке ролей
+                        break;
+                    }
+                    else
+                    {
+                        result.Add(role);
+                    }
+                    role_user.SelectedItem = result[0];// Установка первого элемента списка ролей по умолчанию
+                }
+
+            }
+        }
+        private void Button_Add(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RoleViewModel selected = role_user.SelectedItem as RoleViewModel;// Получение выбранной роли
+                UserEntity entity = new UserEntity // Создание объекта с данными пользователя
+                {
+                    Name = name_user.Text,
+                    SurName = surname_user.Text,
+                    Patronymic = patronymic_user.Text,
+                    Birthday = birthday_user.Text,
+                    Login = login_user.Text,
+                    Password = password_user.Text,
+                    Gender = gender_user.Text,
+                    RoleID = selected.ID// Запись ID выбранной роли
+                };
+
+
+                if (_selectedItem != null)
+                {
+                    entity.ID = _selectedItem.ID;
+                    _repository.Update(entity);// Обновление данных пользователя
+                }
+                else
+                {
+                    _repository.Add(entity);// Добавление нового пользователя
+                }
+
+                MessageBox.Show("Запись успешно сохранена.");// Вывод сообщения об успешном сохранении  
+                UsersAdminWindow userWindow = new UsersAdminWindow();
+                userWindow.Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);// Вывод сообщения об ошибке
+            }
         }
     }
 }

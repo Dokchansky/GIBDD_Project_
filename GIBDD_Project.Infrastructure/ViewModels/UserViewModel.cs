@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GIBDD_Project.Infrastructure.ViewModels
 {
-    public class UserViewModel
+    public partial class UserViewModel
     {
         public long ID { get; set; }
         public string SurName { get; set; }
@@ -17,5 +17,6 @@ namespace GIBDD_Project.Infrastructure.ViewModels
         public string Login { get; set; }
         public string Password { get; set; }
         public long RoleID { get; set; }
+        public RoleViewModel Role {  get; set; }
     }
 }

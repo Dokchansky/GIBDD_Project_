@@ -23,17 +23,15 @@ namespace GIBDD_Project.Windows
     public partial class FineWindow : Window
     {
         private FineRepository _repository;
-        private TransportRepository _transportRepository;
-        private TransportViewModel _viewTransportModel;
+
 
         public FineWindow()
         {
             InitializeComponent();
             Title = "Список штрафов";
             _repository = new FineRepository();
-            //FineGrid.ItemsSource = _repository.GetList();
-            _transportRepository = new TransportRepository();
-            state_number.ItemsSource = _transportRepository.GetList();
+            FineGrid.ItemsSource = _repository.GetList();
+
 
 
 
@@ -41,34 +39,30 @@ namespace GIBDD_Project.Windows
         }
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
-            Close();
+            Hide();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
+            Close();
         }
 
-        private void state_number_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _viewTransportModel = state_number.SelectedItem as TransportViewModel;
-            UpdateGrid();
-        }
-        private void UpdateGrid()
-        {
-            if (_viewTransportModel != null)
-            {
-                var selectedNumber = _repository.GetByFineId(_viewTransportModel.ID);
-                FineGrid.ItemsSource = selectedNumber;
-
-
-
-            }
-            else
-            {
-                FineGrid.ItemsSource = null;
-            }
-        }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                FineGrid.ItemsSource = _repository.GetList(); // Показать все элементы, если запрос пуст.
+            }
+
+            else
+            {
+                List<FineViewModel> searchResult = _repository.Search(search);// Выполнить поиск по запросу.
+                FineGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+            }
         }
     }
 }
