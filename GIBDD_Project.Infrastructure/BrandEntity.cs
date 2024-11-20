@@ -15,10 +15,8 @@ namespace GIBDD_Project.Infrastructure
             Transport = new HashSet<TransportEntity>();
         }
 
-        [Column("ID")]
         public long ID { get; set; }
 
-        [Column("Name")]
         [Required]
         [StringLength(2147483647)]
         public string Name { get; set; }

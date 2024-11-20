@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace GIBDD_Project.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для UsersWindow.xaml
+    /// Логика взаимодействия для AddFineWindow.xaml
     /// </summary>
-    public partial class UsersWindow : Window
+    public partial class AddFineWindow : Window
     {
-        public UsersWindow()
+        public AddFineWindow()
         {
             InitializeComponent();
-            Title = "Список пользователей";
         }
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
@@ -30,11 +29,11 @@ namespace GIBDD_Project.Windows
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
         }
-        private void Button_Add(object sender, RoutedEventArgs e)
+        private void Button_Back(object sender, RoutedEventArgs e)
         {
             Hide();
-            AddUserWindow addUserWindow = new AddUserWindow();
-            addUserWindow.Show();
+            FineAdminWindow fineadmWindow = new FineAdminWindow();
+            fineadmWindow.Show();
         }
     }
 }

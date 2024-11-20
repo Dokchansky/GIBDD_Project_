@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GIBDD_Project.Infrastructure.Database
 {
-    internal class RoleRepository
+    public class RoleRepository
     {
     }
 }

@@ -36,16 +36,11 @@ namespace GIBDD_Project.Windows
             PersonalWindow personalWindow = new PersonalWindow();
             personalWindow.Show();
         }
-        private void Button_Cars(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            CarsWindow carsWindow = new CarsWindow();
-            carsWindow.Show();
-        }
+
         private void Button_Fines(object sender, RoutedEventArgs e)
         {
             Hide();
-            FineWindow fineWindow = new FineWindow();
+            FineAdminWindow fineWindow = new FineAdminWindow();
             fineWindow.Show();
         }
         private void Button_Exit(object sender, RoutedEventArgs e)
@@ -57,8 +52,8 @@ namespace GIBDD_Project.Windows
         private void Button_Users(object sender, RoutedEventArgs e)
         {
             Hide();
-            UsersWindow usersWindow = new UsersWindow();
-            usersWindow.Show();
+            UsersAdminWindow usersadminWindow = new UsersAdminWindow();
+            usersadminWindow.Show();
         }
 
 

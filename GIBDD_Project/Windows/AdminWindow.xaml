@@ -25,10 +25,7 @@
             <TextBox x:Name="roleTextBox" IsReadOnly="True" Width="Auto" Foreground="#FF007ACC" FontFamily="Gill Sans Ultra Bold Condensed" FontSize="16"/>
         </StackPanel>
         <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
-            <Button Content="Личный кабинет" Click="Button_Personal" Height="50"/>
-        </StackPanel>
-        <StackPanel Height="50" Width="150" VerticalAlignment="Center">
-            <Button Content="Автомобили" Click="Button_Cars" Height="50"/>
+            <Button Content="Автомобили" Click="Button_Personal" Height="50"/>
         </StackPanel>
         <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="50">
             <Button Content="Штрафы" Click="Button_Fines" Height="50" />
@@ -36,7 +33,7 @@
         <StackPanel Height="50" Width="150" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30">
             <Button Content="Выход" Click="Button_Exit" Height="50"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="75">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Пользователи" Click="Button_Users" Width="300" Height="50"/>
         </StackPanel>
     </Grid>
