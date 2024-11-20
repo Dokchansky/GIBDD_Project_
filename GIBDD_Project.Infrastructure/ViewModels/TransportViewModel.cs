@@ -15,6 +15,8 @@ namespace GIBDD_Project.Infrastructure.ViewModels
         public long UserID { get; set; }
         public long BrandID { get; set; }
         public string BrandName { get; set; }
+        public string CarCategoryName { get; set; }
+       
 
     }
 }

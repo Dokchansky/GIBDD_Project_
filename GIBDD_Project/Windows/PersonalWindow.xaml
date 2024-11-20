@@ -16,17 +16,21 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="86" Width="87" >
             <Image Source="gibdd.png"/>
         </StackPanel>
-       
-        <DataGrid Margin="245,137,53,25" Background="#FFC9DEF5" x:Name="personalGrid" AutoGenerateColumns="False">
+        <DataGrid Margin="56,157,199,5" Background="#FFC9DEF5" x:Name="personalGrid" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Тип кузова" Binding="{Binding CarCategory.Name}"/>
                 <DataGridTextColumn Header="Марка" Binding="{Binding BrandName}"/>
+                <DataGridTextColumn Header="Тип кузова" Binding="{Binding CarCategoryName}"/>
                 <DataGridTextColumn Header="Дата выпуска" Binding="{Binding Year}"/>
                 <DataGridTextColumn Header="Гос.номер" Binding="{Binding StateNumber}"/>
+                <DataGridTextColumn Header="Статус угона" Binding="{Binding Status}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="661,0,0,361">
             <Button Content="В меню" Click="Button_Menu" Height="30" Width="120"/>
+        </StackPanel>
+        <StackPanel Margin="75,79,199,282">
+            <TextBox x:Name="find" BorderThickness="1" Width="517" Height="25" />
+            <Button  Content="Найти" Click="Button_Click" Height="27" Width="128" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top"/>
         </StackPanel>
     </Grid>
 </Window>

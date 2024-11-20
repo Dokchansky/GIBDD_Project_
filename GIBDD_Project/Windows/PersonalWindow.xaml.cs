@@ -1,4 +1,5 @@
 ﻿using GIBDD_Project.Infrastructure.Database;
+using GIBDD_Project.Infrastructure.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,20 +22,35 @@ namespace GIBDD_Project.Windows
     public partial class PersonalWindow : Window
     {
         private TransportRepository transportRepository;
-        private CarCategoryRepository carCategoryRepository;
         public PersonalWindow()
         {
             InitializeComponent();
             Title = "Личный кабинет";
             transportRepository = new TransportRepository();
             personalGrid.ItemsSource = transportRepository.GetList();
-
         }
+
+
         private void Button_Menu(object sender, RoutedEventArgs e)
         {
             Hide();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string search = find.Text;
+            if (string.IsNullOrEmpty(search))
+            {
+                personalGrid.ItemsSource = transportRepository.GetList(); // Показать все элементы, если запрос пуст.
+            }
+
+            else
+            {
+                List<TransportViewModel> searchResult = transportRepository.Search(search);// Выполнить поиск по запросу.
+                personalGrid.ItemsSource = searchResult;// Отобразить результаты поиска.
+            }
+        }
+
     }
 }

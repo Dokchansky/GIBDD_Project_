@@ -36,12 +36,6 @@ namespace GIBDD_Project
             PersonalWindow personalWindow = new PersonalWindow();
             personalWindow.Show();
         }
-        private void Button_Cars(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            CarsWindow carsWindow = new CarsWindow();
-            carsWindow.Show();
-        }
         private void Button_Fines(object sender, RoutedEventArgs e)
         {
             Hide();

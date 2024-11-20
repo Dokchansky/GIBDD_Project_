@@ -10,13 +10,10 @@
         Height="450" Width="800">
     <Grid>
         <Label Content="{Binding Title}" Height="450" Width="800"/>
-        <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50">
-            <Button Content="Личный кабинет" Click="Button_Personal" Height="50"/>
+        <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="221,0,0,0">
+            <Button Content="Автомобили" Click="Button_Personal" Height="50"/>
         </StackPanel>
-        <StackPanel Height="50" Width="150" VerticalAlignment="Center">
-            <Button Content="Автомобили" Click="Button_Cars" Height="50"/>
-        </StackPanel>
-        <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="50">
+        <StackPanel Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="440,0,0,0">
             <Button Content="Штрафы" Click="Button_Fines" Height="50"/>
         </StackPanel>
         <StackPanel Height="50" Width="150" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30">

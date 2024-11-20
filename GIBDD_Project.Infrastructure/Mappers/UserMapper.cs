@@ -22,6 +22,7 @@ namespace GIBDD_Project.Infrastructure.Mappers
                 Login = entity.Login,
                 Password = entity.Password,
                 RoleID = entity.RoleID,
+                RoleName = entity.Role.Name,
 
 
 

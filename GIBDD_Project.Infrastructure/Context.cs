@@ -27,6 +27,11 @@ namespace GIBDD_Project.Infrastructure
                 .WithRequired(e => e.Brand)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<CarCategoryEntity>()
+                .HasMany(e => e.Transport)
+                .WithRequired(e => e.CarCategory)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<RoleEntity>()
                 .HasMany(e => e.User)
                 .WithRequired(e => e.Role)

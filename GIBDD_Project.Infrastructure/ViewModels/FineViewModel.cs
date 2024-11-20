@@ -14,6 +14,7 @@ namespace GIBDD_Project.Infrastructure.ViewModels
         public string Status { get; set; }
         public long TypeID { get; set; }
         public long TransportID { get; set; }
+        public string TransportStateNumber { get; set; }
 
     }
 }
